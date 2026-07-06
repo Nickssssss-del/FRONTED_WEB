@@ -1,20 +1,29 @@
-/* =========================================================
-   RESET GENERAL
-========================================================= */
-/* 
-   Elimina márgenes y padding por defecto del navegador.
-   box-sizing:border-box hace que el padding y border
-   no aumenten el tamaño real del elemento.
-*/
+/* UTILIDAD DE ACCESIBILIDAD
+   Oculta visualmente un elemento pero lo deja disponible
+   para lectores de pantalla (ej: labels de inputs). */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/*  RESET GENERAL */
+/*Elimina márgenes y padding por defecto del navegador.
+box-sizing:border-box hace que el padding y border
+no aumenten el tamaño real del elemento.*/
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* 
-   Estilos globales del body.
-*/
+/*  Estilos globales del body.*/
 body {
     font-family: 'Poppins', sans-serif; /* Fuente principal */
     background: var(--bg-page); /* Color de fondo */
@@ -29,7 +38,7 @@ body {
     margin: auto; /* Centrado horizontal */
     padding: 0 24px 60px; /* Espaciado interno */
 }
-/* TÍTULO PRINCIPAL */
+
 
 /* 
    Encabezado de la carta.
@@ -50,13 +59,8 @@ body {
     margin-bottom: 6px; /* Espacio inferior */
 }
 
-/* =========================================================
-   SEPARADOR DECORATIVO
-========================================================= */
-
-/* 
-   Línea decorativa debajo del título.
-*/
+/* SEPARADOR DECORATIVO*/
+/* Línea decorativa debajo del título.*/
 .divider-deco {
     width: 60px; /* Ancho inicial */
     height: 2px; /* Grosor */
@@ -74,17 +78,13 @@ body {
     opacity: 1;
 }
 
-/* 
-   Efecto hover del separador.
-*/
+/* Efecto hover del separador.*/
 .divider-deco:hover {
     width: 160px; /* Aumenta ancho */
     opacity: 1;
 }
 
-/* 
-   Texto descriptivo debajo del título.
-*/
+/* Texto descriptivo debajo del título.*/
 .text-carta {
     font-size: 0.93rem;
  color: var(--text-secondary);
@@ -92,12 +92,8 @@ body {
     letter-spacing: 0.02em;
 }
 
-/* =========================================================
-   BUSCADOR
-========================================================= */
-/* 
-   Contenedor del buscador.
-*/
+/* BUSCADOR */
+/* Contenedor del buscador*/
 .buscador-box {
     display: flex; /* Flexbox */
     align-items: center; /* Centrado vertical */
@@ -119,9 +115,7 @@ body {
         box-shadow 0.2s;
 }
 
-/* 
-   Estilo cuando el input recibe focus.
-*/
+/* Estilo cuando el input recibe focus.*/
 .buscador-box:focus-within {
  border-color: var(--tan);/* Cambia el color del borde al enfocar */
 
@@ -130,9 +124,7 @@ body {
         0 0 0 3px rgba(192, 132, 90, 0.15);/* Sombra suave alrededor del buscador */
 }
 
-/* 
-   Ícono del buscador.
-*/
+/* Ícono del buscador.*/
 .buscador-box .icono {
     font-size: 15px;
     margin-right: 10px;
@@ -164,12 +156,8 @@ body {
     color: var(--burnt-orange);
 }
 
-/* =========================================================
-   FILTROS
-========================================================= */
-/* 
-   Contenedor de filtros superiores.
-*/
+/* FILTROS */
+/* Contenedor de filtros superiores.*/
 .filtros-top {
     display: flex;/* Flexbox para organizar los filtros */
 
@@ -184,18 +172,14 @@ body {
     align-items: center;
 }
 
-/* 
-   Grupo de filtros.
-*/
+/*  Grupo de filtros.*/
 .grupo {/* Flexbox para organizar etiqueta y select */
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-/* 
-   Texto de etiquetas.
-*/
+/* Texto de etiquetas.*/
 .grupo label {/* Estilo de las etiquetas de los filtros */
     font-size: 0.88rem;
     font-weight: 600;
@@ -203,7 +187,6 @@ body {
 }
 
 /* SELECT */
-
 /*  Estilos del select.*/
 select {
     padding: 7px 2rem 7px 12px;
@@ -235,19 +218,13 @@ select {
     transition: border-color 0.2s;
 }
 
-/* 
-   Focus del select.
-*/
+/* Focus del select.*/
 select:focus {/* Cambia el color del borde al enfocar el select */
     border-color: var(--tan);
 }
 
-/* =========================================================
-   BOTÓN ORDEN
-========================================================= */
-/* 
-   Botón para cambiar el orden.
-*/
+/* BOTÓN ORDEN */
+/* Botón para cambiar el orden.*/
 #toggleOrden {/* Botón circular para cambiar el orden de los productos */
     width: 34px;
     height: 34px;
@@ -276,20 +253,22 @@ select:focus {/* Cambia el color del borde al enfocar el select */
     font-family: 'Poppins', sans-serif;
 }
 
-/* 
-   Hover del botón.
-*/
+/* Hover del botón.*/
 #toggleOrden:hover {/* Efecto hover para el botón de orden */
      background: var(--bg-surface);
     border-color: var(--tan);
 }
 
-/* =========================================================
-   CATEGORÍAS
-========================================================= */
-/* 
-   Contenedor de categorías.
-*/
+/* SIN RESULTADOS
+   Mensaje que aparece cuando el filtro/búsqueda no encuentra ningún producto.*/
+.sin-resultados {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+}
+
+/* CATEGORÍAS.Contenedor de categorías.*/
 .categorias {/* Flexbox para organizar los botones de categorías */
     display: flex;
 
@@ -302,9 +281,7 @@ select:focus {/* Cambia el color del borde al enfocar el select */
     margin-bottom: 2rem;
 }
 
-/* 
-   Botones de categorías.
-*/
+/* Botones de categorías.*/
 .chip {/* Estilo de los botones de categorías tipo "chip" */
     background: var(--bg-page);
 
@@ -358,13 +335,9 @@ select:focus {/* Cambia el color del borde al enfocar el select */
         0 4px 12px rgba(122, 60, 30, 0.25);
 }
 
-/* =========================================================
-   GRID PRODUCTOS
-========================================================= */
+/*GRID PRODUCTOS*/
 
-/* 
-   Grid responsive de productos.
-*/
+/* Grid responsive de productos.*/
 .contenedor-productos {
     display: grid;/* Grid para organizar los productos */
 
@@ -376,19 +349,16 @@ select:focus {/* Cambia el color del borde al enfocar el select */
     padding: 4px 0;
 }
 
-/* =========================================================
-   CARD PRODUCTO
-========================================================= */
+/* CARD PRODUCTO */
 
-/* 
-   Tarjeta individual.
-*/
+/* Tarjeta individual.*/
 .card {/* Estilo de las tarjetas de productos */
      background: var(--bg-page);
     border-radius: 16px;
     padding: 16px;
     border: 1.5px solid var(--border-color);
     position: relative;
+    cursor: pointer; /* Indica que la tarjeta es clickeable (abre la ventana emergente) */
     transition:
         transform .35s ease,
         box-shadow .35s ease,
@@ -399,6 +369,15 @@ select:focus {/* Cambia el color del borde al enfocar el select */
     flex-direction: column;
 
     align-items: center;
+}
+
+/* Foco visible por teclado (accesibilidad) en tarjetas, chips y botones de favorito */
+.card:focus-visible,
+.chip:focus-visible,
+.fav-btn:focus-visible,
+.modal-cerrar:focus-visible {
+    outline: 2px solid var(--burnt-orange);
+    outline-offset: 3px;
 }
 
 .card::before{
@@ -423,9 +402,7 @@ select:focus {/* Cambia el color del borde al enfocar el select */
 }
 
 
-/* 
-   Imagen del producto.
-*/
+/* Imagen del producto.*/
 .card img {/* Estilo de la imagen dentro de la tarjeta */
     width: 100%;
 
@@ -619,9 +596,7 @@ select:focus {/* Cambia el color del borde al enfocar el select */
     }
 }
 
-/* =========================================================
-   RESPONSIVE - TABLETS
-========================================================= */
+/* RESPONSIVE - TABLETS */
 
 @media (max-width:768px){
 
@@ -653,11 +628,26 @@ select:focus {/* Cambia el color del borde al enfocar el select */
     .card img{
         height:140px;
     }
+
+    /* Categorías: en vez de amontonarse en varias líneas,
+       se deslizan horizontalmente (como en apps de delivery). */
+    .categorias{
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 8px;
+        margin-bottom: 1.2rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .chip{
+        scroll-snap-align: start;
+        flex-shrink: 0;
+    }
 }
 
-/* =========================================================
-   RESPONSIVE - CELULARES
-========================================================= */
+/* RESPONSIVE - CELULARES */
 
 @media (max-width:480px){
 
@@ -690,20 +680,18 @@ select:focus {/* Cambia el color del borde al enfocar el select */
         height:30px;
     }
 }
-/* =========================================================
-   OCULTAR CON CLASE (evita usar style.display inline en JS)
-========================================================= */
+/* OCULTAR CON CLASE  */
 .oculto {
     display: none;
 }
 
-/* =========================================================
-   MODAL DE PRODUCTO
-========================================================= */
+/*  MODAL DE PRODUCTO (ventana emergente)
+    Usa variables del tema (--bg-surface, --text-primary, etc.)
+    para que se adapte automáticamente al modo claro/oscuro. */
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(61, 43, 31, 0.6);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -711,18 +699,19 @@ select:focus {/* Cambia el color del borde al enfocar el select */
     padding: 20px;
 }
 
-/* CRÍTICO: el atributo hidden no gana por sí solo frente a .modal-overlay
-   con display:flex, hay que forzarlo explícitamente */
 .modal-overlay[hidden] {
     display: none;
 }
 
 .modal-box {
-    background: #fff8f2;
+    background: var(--bg-surface);/* Fondo del modal */
+    border: 1.5px solid var(--border-color);/* Borde del modal */
     border-radius: 16px;
     padding: 28px;
-    max-width: 400px;
+    max-width: 420px;
     width: 100%;
+    max-height: 85vh;/* Altura máxima del modal */
+    overflow-y: auto;/* Permite scroll si el contenido es demasiado grande */
     position: relative;
     animation: modal-in 0.25s ease;
     text-align: center;
@@ -734,18 +723,72 @@ select:focus {/* Cambia el color del borde al enfocar el select */
     object-fit: contain;
     margin-bottom: 12px;
 }
-
+/* Título del producto en el modal */
 .modal-box h3 {
     font-family: 'Playfair Display', serif;
-    color: #6b1e1e;
-    margin-bottom: 8px;
+    color: var(--text-primary);
+    margin-bottom: 8px;/* Espacio inferior */
+    font-size: 1.4rem;
+}
+/* Categoría del producto en el modal */
+.modal-box .modal-categoria {
+    display: inline-block;
+    background: var(--bg-page);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;/* Convierte el texto a mayúsculas */
+    letter-spacing: .04em;
+    padding: 3px 12px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+
+/* Descripción del producto en el modal */
+.modal-box .modal-descripcion {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 4px;
 }
 
 .modal-box .precio {
-    color: #7a3c1e;
+    color: var(--burnt-orange);/* Color del precio */
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     margin-top: 10px;
+    display: block;/* Asegura que el precio esté en una línea separada */
+}
+
+.modal-fav-btn {
+    margin-top: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 50px;
+    border: 1.5px solid var(--border-color);
+    background: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+}
+/* Botón de favoritos en el modal */
+
+.modal-fav-btn:hover {
+    background: var(--olive);
+    border-color: var(--olive-hover);
+}
+
+/* Botón de favoritos activo en el modal . el modal se adapta automáticamente al modo*/   
+.modal-fav-btn.activo {
+    background: var(--burnt-orange);
+    color: var(--text-on-dark);
+    border-color: var(--burnt-orange);
 }
 
 .modal-cerrar {
@@ -755,17 +798,27 @@ select:focus {/* Cambia el color del borde al enfocar el select */
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 1.5px solid #d4bfb0;
-    background: #fdf8f3;
+    border: 1.5px solid var(--border-color);
+    background: var(--bg-page);
     cursor: pointer;
     font-size: 14px;
-    color: #6b1e1e;
+    color: var(--text-primary);
     transition: background 0.18s, border-color 0.18s;
 }
 
 .modal-cerrar:hover {
-    background: #e8d5c4;
-    border-color: #c0845a;
+    background: var(--olive);
+    border-color: var(--olive-hover);
+}
+
+/* En pantallas chicas la ventana emergente ocupa casi todo el ancho */
+@media (max-width: 480px) {
+    .modal-box {
+        padding: 22px;
+    }
+    .modal-box img {
+        height: 160px;
+    }
 }
 
 @keyframes modal-in {
@@ -779,9 +832,7 @@ select:focus {/* Cambia el color del borde al enfocar el select */
     }
 }
 
-/* =========================================================
-   FORMULARIOS: VALIDACIÓN EN TIEMPO REAL
-========================================================= */
+/* FORMULARIOS: VALIDACIÓN EN TIEMPO REAL */
 .input-invalido {
     border-color: #e84040 !important;
 }
@@ -798,9 +849,7 @@ select:focus {/* Cambia el color del borde al enfocar el select */
     margin-top: 4px;
 }
 
-/* =========================================================
-   FEEDBACK DE BOTONES (carga / éxito / error)
-========================================================= */
+/*  FEEDBACK DE BOTONES */
 .btn-cargando {
     opacity: 0.6;
     cursor: wait;
