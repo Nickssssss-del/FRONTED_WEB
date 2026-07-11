@@ -415,7 +415,6 @@ tfoot td {
     flex-wrap: wrap;
     margin-bottom: 18px;
 }
-
 /* Grupo label + select */
 .ctrl-grupo {
     display: flex;
@@ -430,6 +429,7 @@ tfoot td {
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: #667E6B;
+    text-shadow: none;
 }
 
 .ctrl-grupo select {
@@ -445,6 +445,9 @@ tfoot td {
     outline: none;
     appearance: none;
     -webkit-appearance: none;
+    box-shadow: none;
+    text-shadow: none;
+
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23A86D49'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 10px center;
@@ -452,9 +455,11 @@ tfoot td {
     transition: border-color 0.2s;
 }
 
-.ctrl-grupo select:focus { border-bottom-color: #26382E; }
+.ctrl-grupo select:focus {
+    border-bottom-color: #26382E;
+    box-shadow: none;
+}
 
-/* Separador vertical entre selects */
 .ctrl-sep {
     width: 1px;
     height: 36px;
@@ -462,7 +467,6 @@ tfoot td {
     align-self: flex-end;
     margin-bottom: 2px;
 }
-
 /* Línea decorativa entre selects y botones */
 .controles-linea {
     width: 48px;

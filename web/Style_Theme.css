@@ -1,9 +1,9 @@
 :root {
     /* --- Colores de marca (fijos en ambos modos) --- */
-    --olive: #CFDC78;               
-    --olive-hover: #B9C85E;         
-    --tan: #A89682;                 
-    --burnt-orange: #544736;        
+    --olive: #CFDC78;             
+    --olive-hover: #B9C85E;        
+    --tan: #A89682;                
+    --burnt-orange: #544736;       
     --burnt-orange-hover: #322817; 
 
     /* --- Roles semánticos: MODO CLARO --- */
@@ -17,22 +17,24 @@
 }
 
 [data-theme="dark"] {
-    /* --- Roles semánticos: MODO OSCURO --- */
-    --bg-page: #1a1510;
-    --bg-surface: #241d16;
-    --bg-header: #263d38;          
-    --text-primary: #E4DBD1;
-    --text-on-dark: #E4DBD1;
-    --text-secondary: #C9BCA8;
-    --border-color: #4a3d2c;
+    /* Fondos - Más claros */
+    --bg-page: #2A241E;
+    --bg-surface: #352D26;
+    --bg-header: #3B5A53;
 
-    --olive: #CFDC78;
-    --olive-hover: #E2EA9E;
-    --tan: #BAD1D6;
-    --burnt-orange: #8A7358;
-    --burnt-orange-hover: #A68F6E;
+    /* Textos */
+    --text-primary: #FFFDF9;
+    --text-on-dark: #F5EFE7;
+    --text-secondary: #E6D7C6;
+    --border-color: #8B7762;
+
+    /* Colores de marca */
+    --olive: #D9E98D;
+    --olive-hover: #E8F3B4;
+    --tan: #E5D2BD;
+    --burnt-orange: #E8B792;
+    --burnt-orange-hover: #F2CCAE;
 }
-
 
 /* Transición suave al cambiar de tema */
 html {

@@ -58,36 +58,25 @@ body {
    Línea decorativa debajo del título.
 */
 .divider-deco {
-    width: 60px; /* Ancho inicial */
-    height: 2px; /* Grosor */
-    
-    /* Degradado decorativo */
-   background: linear-gradient(to right, transparent, var(--tan), transparent);
-
+    width: 60px;
+    height: 2px;
+    /* Usamos var(--tan) para que cambie automáticamente según el tema */
+    background: linear-gradient(to right, transparent, var(--tan), transparent);
     margin: 0.5rem auto 0.9rem;
-
-    /* Animación suave */
     transition:
         width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
         opacity 0.2s ease;
-
-    opacity: 1;
+    opacity: 0.8; /* Ligeramente más suave */
 }
 
-/* 
-   Efecto hover del separador.
-*/
 .divider-deco:hover {
-    width: 160px; /* Aumenta ancho */
+    width: 160px;
     opacity: 1;
 }
 
-/* 
-   Texto descriptivo debajo del título.
-*/
 .text-carta {
     font-size: 0.93rem;
- color: var(--text-secondary);
+    color: var(--text-secondary);
     font-weight: 300;
     letter-spacing: 0.02em;
 }
@@ -95,73 +84,46 @@ body {
 /* =========================================================
    BUSCADOR
 ========================================================= */
-/* 
-   Contenedor del buscador.
-*/
 .buscador-box {
-    display: flex; /* Flexbox */
-    align-items: center; /* Centrado vertical */
-
-      background: var(--bg-page);
-
-    border-radius: 50px; /* Bordes redondos */
-
-    padding: 10px 20px;/* Espaciado interno */
-
+    display: flex;
+    align-items: center;
+    background: var(--bg-page);
+    border-radius: 50px;
+    padding: 10px 20px;
     max-width: 540px;
-
     margin: 1.4rem auto;
-
     border: 1.5px solid var(--border-color);
-
-    transition:/* Transiciones suaves para interacciones */
-        border-color 0.2s,
-        box-shadow 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* 
-   Estilo cuando el input recibe focus.
-*/
 .buscador-box:focus-within {
- border-color: var(--tan);/* Cambia el color del borde al enfocar */
-
-
-    box-shadow:
-        0 0 0 3px rgba(192, 132, 90, 0.15);/* Sombra suave alrededor del buscador */
+    border-color: var(--tan);
+    /* Sombra dinámica basada en el color --tan */
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--tan) 20%, transparent);
 }
 
-/* 
-   Ícono del buscador.
-*/
 .buscador-box .icono {
     font-size: 15px;
     margin-right: 10px;
-    opacity: 0.5;
+    color: var(--text-secondary); /* Mejor contraste */
+    opacity: 0.6;
 }
 
-/* 
-   Input del buscador.
-*/
 .buscador-box input {
     border: none;
     outline: none;
-
     flex: 1;
-
     background: transparent;
-
     font-size: 0.93rem;
-
     font-family: 'Poppins', sans-serif;
-
-     color: var(--text-primary);
+    color: var(--text-primary);
 }
 
-/* 
-   Placeholder del input.
-*/
-.buscador-box input::placeholder {/* Color del texto de placeholder */
+.buscador-box input::placeholder {
+    /* Mantenemos burnt-orange para un toque de marca, 
+       pero podrías usar var(--text-secondary) si prefieres algo más sutil */
     color: var(--burnt-orange);
+    opacity: 0.7;
 }
 
 /* =========================================================
