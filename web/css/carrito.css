@@ -5,6 +5,33 @@
    para verse consistente en modo claro y oscuro.
    ============================================================= */
 
+/* RESET GENERAL Y FONDO DE PÁGINA — SOLO carrito.html
+   carrito.html no carga Style_4.css (la hoja de Registrarse.html), que es
+   la única del proyecto que define el reset global "* { box-sizing:
+   border-box; }" y el fondo de <body>. Por eso body se veía blanco y los
+   botones del resumen no tenían el mismo ancho/alto (el <a> "Seguir
+   comprando" usa box-sizing:content-box por defecto del navegador al no
+   ser un <button>/<input>, mientras que sus hermanos <button> sí reciben
+   border-box por defecto). Se replica igual que en Style_4.css, pero
+   acotado con ":has(.carrito-main)" porque este archivo (css/carrito.css)
+   lo cargan las 6 páginas del sitio, no solo carrito.html: sin acotar,
+   este mismo fondo y reset se filtrarían a index/CATALOGO/Promociones/
+   Direccion, que ya tienen su propio fondo definido en su Style_N.css. */
+body:has(.carrito-main) {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background:
+        radial-gradient(circle at 12% 15%, color-mix(in srgb, var(--tan) 28%, transparent), transparent 45%),
+        radial-gradient(circle at 88% 85%, color-mix(in srgb, var(--olive) 22%, transparent), transparent 45%),
+        var(--bg-page);
+    height: 100%;
+    width: 100%;
+}
+
+body:has(.carrito-main) * {
+    box-sizing: border-box;
+}
+
 /* ── Ícono del carrito dentro del <nav> ── */
 /* Selector reforzado (.menu a.nav-carrito) para tener prioridad sobre
    la regla genérica ".menu a" definida en Style_header.css */
@@ -204,6 +231,17 @@
     grid-template-columns: 1fr 360px;
     gap: 36px;
     align-items: start;
+}
+
+/* El "display: grid" de arriba tiene la misma especificidad que la regla
+   nativa del navegador "[hidden] { display: none; }", y al ser una regla
+   de autor le gana a la del user-agent: por eso layoutEl.hidden = true
+   (en js/CarritoPagina.js) no ocultaba nada y el listado de productos y el
+   resumen (subtotal/IGV/total) quedaban visibles con los valores viejos
+   aunque el carrito ya estuviera vacío. Se sube la especificidad para el
+   caso oculto para que sí gane. */
+.carrito-layout[hidden] {
+    display: none;
 }
 
 @media (max-width: 920px) {
@@ -566,8 +604,6 @@
     background: transparent;
     border: 1.5px solid rgba(192,57,43,0.45);
     color: #C0392B;
-    font-size: 0.87rem;
-    padding: 10px 16px;
 }
 
 .btn-carrito.peligro:hover {
@@ -715,7 +751,7 @@
 }
 
 .checkout-campo input,
-.checkout-campo select,
+.checkout-campo select:not(.custom-select__native),
 .checkout-campo textarea {
     padding: 11px 13px;
     border-radius: 10px;

@@ -85,6 +85,24 @@ body {
     margin-bottom: 10px;
 }
 
+/* Línea decorativa debajo del título. Esta clase se usa en el HTML pero
+   antes no tenía ninguna regla en las hojas que carga Promociones.html
+   (solo existía en Style_6.css, la hoja de CATALOGO.html): sin estilo, el
+   <div> vacío ocupaba todo el ancho del contenedor sin ningún límite de
+   tamaño, en vez del pequeño acento centrado que sí se ve en la Carta. */
+.divider-deco {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--tan), transparent);
+    margin: 0.5rem auto 0.9rem;
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.2s ease;
+    opacity: 1;
+}
+
+.divider-deco:hover {
+    width: 160px;
+}
+
 /* Título principal */
 .Promociones_titulo h1 {
     font-family: 'Playfair Display', Georgia, serif;
@@ -380,7 +398,7 @@ body {
         align-items: center;
     }
 
-    .ctrl-grupo select,
+    .ctrl-grupo select:not(.custom-select__native),
     .ctrl-grupo .custom-select {
         width: 100%;
         min-width: 0;
@@ -442,7 +460,7 @@ body {
     color: var(--text-secondary);
 }
 
-.ctrl-grupo select {
+.ctrl-grupo select:not(.custom-select__native) {
     font-family: 'Poppins', sans-serif;
     font-size: 0.88rem;
     font-weight: 300;
@@ -609,7 +627,7 @@ body.tema-diciembre {
     letter-spacing: 0.08em;
 }
 
-.form-group select {
+.form-group select:not(.custom-select__native) {
     font-family: 'Poppins', sans-serif;
     padding: 10px 14px;
     border: 2px solid var(--border-color);
@@ -649,7 +667,7 @@ body.tema-diciembre {
         margin: 25px auto;
     }
 
-    .form-group select {
+    .form-group select:not(.custom-select__native) {
         width: 100%;
         min-width: auto;
     }

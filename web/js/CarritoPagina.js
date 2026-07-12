@@ -45,6 +45,10 @@ function inicializarPaginaCarrito() {
             carritoVacioEl.hidden = false;
             layoutEl.hidden = true;
             resumenTextoEl.textContent = "Tu carrito está vacío por ahora.";
+            listaEl.innerHTML = "";
+            resumenSubtotalEl.textContent = Carrito.formatearMoneda(0);
+            resumenIgvEl.textContent      = Carrito.formatearMoneda(0);
+            resumenTotalEl.textContent    = Carrito.formatearMoneda(0);
             return;
         }
 
