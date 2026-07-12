@@ -1,5 +1,4 @@
 
-
 .promo-card {
     cursor: pointer;
 }
@@ -9,11 +8,13 @@
     outline-offset: 3px;
 }
 
+/* ===== OVERLAY DEL MODAL DE PROMOCIÓN ===== */
 .pd-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(38, 56, 46, 0.6);
+    background: rgba(20, 14, 10, 0.65);
+    backdrop-filter: blur(3px);
     align-items: center;
     justify-content: center;
     z-index: 2000;
@@ -24,30 +25,51 @@
     display: flex;
 }
 
+/* ===== CAJA DEL MODAL ===== */
 .pd-caja {
-    background: #F5F1E9;
+    background: var(--bg-surface, #E4DBD1);
+    border: 1px solid var(--border-color, #D3C4AE);
     border-radius: 16px;
     max-width: 380px;
     width: 100%;
     padding: 28px 26px 24px;
     position: relative;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
     max-height: 90vh;
     overflow-y: auto;
 }
 
+/* Scroll-bar discreto dentro del modal en modo oscuro */
+.pd-caja::-webkit-scrollbar { width: 4px; }
+.pd-caja::-webkit-scrollbar-track { background: transparent; }
+.pd-caja::-webkit-scrollbar-thumb { background: var(--border-color, #D3C4AE); border-radius: 2px; }
+
+/* ===== BOTÓN CERRAR ===== */
 .pd-cerrar {
     position: absolute;
     top: 12px;
     right: 14px;
     background: transparent;
-    border: none;
-    font-size: 1.4rem;
-    color: #667E6B;
+    border: 1px solid var(--border-color, #D3C4AE);
+    border-radius: 6px;
+    font-size: 1.2rem;
+    color: var(--text-secondary, #544736);
     cursor: pointer;
     line-height: 1;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
+.pd-cerrar:hover {
+    background: var(--border-color, #D3C4AE);
+    color: var(--text-primary, #322817);
+}
+
+/* ===== IMAGEN ===== */
 .pd-imagen {
     width: 100%;
     max-width: 160px;
@@ -55,10 +77,11 @@
     margin: 0 auto 14px;
 }
 
+/* ===== TEXTOS ===== */
 .pd-titulo {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.3rem;
-    color: #26382E;
+    color: var(--text-primary, #322817);
     text-align: center;
     margin: 0 0 6px;
 }
@@ -70,16 +93,19 @@
     text-transform: uppercase;
     color: #A86D49;
     margin: 0 0 10px;
+    font-weight: 600;
 }
 
 .pd-descripcion {
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
-    color: #667E6B;
+    color: var(--text-secondary, #544736);
     text-align: center;
     margin: 0 0 14px;
+    line-height: 1.5;
 }
 
+/* ===== PRECIOS ===== */
 .pd-precios {
     display: flex;
     align-items: baseline;
@@ -90,8 +116,9 @@
 
 .pd-precio-original {
     text-decoration: line-through;
-    color: #9a9086;
+    color: var(--text-secondary, #544736);
     font-size: 0.9rem;
+    opacity: 0.7;
 }
 
 .pd-precio-descuento {
@@ -101,34 +128,39 @@
 }
 
 .pd-descuento-badge {
-    background: #BFD9C3;
-    color: #1c3320;
+    background: var(--bg-header, #1b2d29);
+    color: var(--text-on-dark, #E4DBD1);
     font-size: 0.72rem;
-    font-weight: 500;
+    font-weight: 600;
     padding: 3px 9px;
     border-radius: 20px;
+    letter-spacing: 0.03em;
 }
 
+/* ===== CONTADOR / BADGE DE ESTADO ===== */
 .pd-countdown {
-    background: #26382E;
-    color: #F5F1E9;
+    background: var(--bg-header, #1b2d29);
+    color: var(--text-on-dark, #E4DBD1);
     font-family: 'Poppins', sans-serif;
     font-size: 0.82rem;
     text-align: center;
     padding: 10px 12px;
     border-radius: 10px;
     margin-bottom: 18px;
+    border: 1px solid rgba(255,255,255,0.06);
 }
 
 .pd-countdown.pd-countdown--inactiva {
-    background: #E4DDD0;
-    color: #5c5347;
+    background: var(--bg-page, #EFE8DF);
+    color: var(--text-secondary, #544736);
+    border-color: var(--border-color, #D3C4AE);
 }
 
+/* ===== FORMULARIO ===== */
 .pd-form-titulo {
     font-family: 'Poppins', sans-serif;
     font-size: 0.85rem;
-    color: #26382E;
+    color: var(--text-primary, #322817);
     font-weight: 500;
     margin: 0 0 8px;
 }
@@ -141,15 +173,29 @@
 
 .pd-input {
     padding: 10px 12px;
-    border: 1px solid #C8B49E;
+    border: 1px solid var(--border-color, #C8B49E);
     border-radius: 8px;
     font-family: 'Poppins', sans-serif;
     font-size: 0.85rem;
-    background: #fff;
+    background: var(--bg-page, #EFE8DF);
+    color: var(--text-primary, #322817);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pd-input:focus {
+    border-color: #A86D49;
+    box-shadow: 0 0 0 3px rgba(168, 109, 73, 0.18);
 }
 
 .pd-input.pd-input--error {
     border-color: #C0392B;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+}
+
+.pd-input::placeholder {
+    color: var(--text-secondary, #544736);
+    opacity: 0.6;
 }
 
 .pd-mensaje-error {
@@ -174,6 +220,7 @@
     display: block;
 }
 
+/* ===== BOTÓN PRINCIPAL ===== */
 .pd-boton {
     background: #A86D49;
     color: #F5F1E9;
@@ -184,11 +231,35 @@
     font-weight: 500;
     font-size: 0.85rem;
     cursor: pointer;
-    transition: background 0.25s ease;
+    transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+    letter-spacing: 0.02em;
 }
 
 .pd-boton:hover {
     background: #935c3d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(168, 109, 73, 0.35);
+}
+
+.pd-boton:active {
+    transform: translateY(0);
+}
+
+/* ===== MODO OSCURO — ajustes adicionales ===== */
+[data-theme="dark"] .pd-overlay {
+    background: rgba(10, 8, 5, 0.75);
+}
+
+[data-theme="dark"] .pd-caja {
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .pd-mensaje-error {
+    color: #e87070;
+}
+
+[data-theme="dark"] .pd-mensaje-exito {
+    color: #7ec895;
 }
 
 @media (max-width: 480px) {

@@ -1,13 +1,29 @@
+/* =============================================
+   Scrip_catalogo.js
+   Lógica de filtros, búsqueda, favoritos, modal
+   y agregar al carrito en CATALOGO.html.
+   ============================================= */
 
-const chips = document.querySelectorAll(".chip");            /* BOTONES DE CATEGORÍA */
-const buscador = document.getElementById("buscador");        /* BUSCADOR */
-const ordenar = document.getElementById("ordenar");          /* SELECT DE ORDEN */
-const estacion = document.getElementById("estacion");        /* SELECT DE ESTACIÓN */
-const toggleOrden = document.getElementById("toggleOrden");  /* BOTÓN DE TOGGLE ORDEN */
-const sinResultados = document.getElementById("sin-resultados"); /* MENSAJE SIN RESULTADOS */
-let ascendente = true;           /* ORDEN INICIAL */
-let categoriaActiva = "all";     /* CATEGORÍA INICIAL */
-let mostrandoFavoritos = false;  /* ESTADO DE FAVORITOS */
+const chips         = document.querySelectorAll(".chip");
+const buscador      = document.getElementById("buscador");
+const ordenar       = document.getElementById("ordenar");
+const estacion      = document.getElementById("estacion");
+const toggleOrden   = document.getElementById("toggleOrden");
+const sinResultados = document.getElementById("sin-resultados");
+
+let ascendente        = true;
+let categoriaActiva   = "all";
+let mostrandoFavoritos = false;
+
+/* SVG del ícono de carrito para usar en botones dinámicos */
+const SVG_CARRITO_BTN = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+</svg>`;
+
+/* SVG íconos de corazón — reemplazan los emojis de favoritos */
+const SVG_CORAZON = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
+const SVG_CORAZON_ACTIVO = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`;
 
 /* FAVORITOS desde localStorage */
 let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
@@ -29,11 +45,11 @@ function toggleFavorito(id) {
     if (card) {
         const btnGrid = card.querySelector(".fav-btn");
         btnGrid.classList.toggle("activo", esFavorito);
-        btnGrid.textContent = esFavorito ? "❤" : "♡";
+        btnGrid.innerHTML = esFavorito ? SVG_CORAZON_ACTIVO : SVG_CORAZON;
         btnGrid.setAttribute("aria-pressed", String(esFavorito));
 
         btnGrid.classList.remove("pop");
-        void btnGrid.offsetWidth; // fuerza el re-render para que funcione si se hace click rápido
+        void btnGrid.offsetWidth;
         btnGrid.classList.add("pop");
         btnGrid.addEventListener("animationend", () => btnGrid.classList.remove("pop"), { once: true });
     }
@@ -42,29 +58,66 @@ function toggleFavorito(id) {
     const btnModal = document.querySelector(".modal-fav-btn");
     if (btnModal && btnModal.dataset.id === id) {
         btnModal.classList.toggle("activo", esFavorito);
-        btnModal.innerHTML = esFavorito ? "❤ Quitar de favoritos" : "♡ Agregar a favoritos";
+        btnModal.innerHTML = esFavorito ? `${SVG_CORAZON_ACTIVO} Quitar de favoritos` : `${SVG_CORAZON} Agregar a favoritos`;
         btnModal.setAttribute("aria-pressed", String(esFavorito));
-        /* Animación de pop en el modal */
         btnModal.classList.remove("pop");
-        void btnModal.offsetWidth; // fuerza el re-render para que funcione si se hace click rápido
+        void btnModal.offsetWidth;
+        btnModal.classList.add("pop");
+        btnModal.addEventListener("animationend", () => btnModal.classList.remove("pop"), { once: true });
     }
-    /* Si estamos mostrando solo favoritos, vuelve a filtrar para ocultar el producto si se quitó de favoritos */
+
+    /* Si estamos mostrando solo favoritos, vuelve a filtrar para ocultar el producto si se quitó */
     if (mostrandoFavoritos) filtrar();
 }
 
 /* MARCAR favoritos al cargar */
 document.querySelectorAll(".card").forEach(card => {
-    const id = card.dataset.id;
+    const id  = card.dataset.id;
     const btn = card.querySelector(".fav-btn");
     if (favoritos.includes(id)) {
         btn.classList.add("activo");
-        btn.textContent = "❤";
+        btn.innerHTML = SVG_CORAZON_ACTIVO;
         btn.setAttribute("aria-pressed", "true");
     }
-    /* Agrega el evento de clic al botón de favorito dentro de la tarjeta */
     btn.addEventListener("click", (e) => {
-        e.stopPropagation(); // evita que el clic en el corazón también abra el modal
+        e.stopPropagation();
         toggleFavorito(id);
+    });
+});
+
+/* AGREGAR AL CARRITO (desde la tarjeta del grid) */
+function agregarProductoAlCarrito(card, boton) {
+    if (!window.carrito) return;
+
+    const producto = {
+        id:     card.dataset.id,
+        nombre: card.dataset.nombre,
+        precio: card.dataset.precio,
+        imagen: card.querySelector("img").getAttribute("src")
+    };
+    window.carrito.agregar(producto);
+
+    if (boton) {
+        boton.classList.remove("click-anim");
+        void boton.offsetWidth;
+        boton.classList.add("click-anim");
+    }
+
+    /* Anima el contador del header */
+    const contador = document.getElementById("carrito-contador");
+    if (contador) {
+        contador.classList.remove("pop");
+        void contador.offsetWidth;
+        contador.classList.add("pop");
+    }
+}
+
+document.querySelectorAll(".card").forEach(card => {
+    const btnCarrito = card.querySelector(".btn-agregar-carrito");
+    if (!btnCarrito) return;
+    btnCarrito.addEventListener("click", (e) => {
+        e.stopPropagation();
+        agregarProductoAlCarrito(card, btnCarrito);
     });
 });
 
@@ -74,7 +127,6 @@ document.getElementById("verFavoritos").addEventListener("click", () => {
     const btn = document.getElementById("verFavoritos");
     btn.classList.toggle("activo", mostrandoFavoritos);
     btn.setAttribute("aria-pressed", String(mostrandoFavoritos));
-    /* Si se activa "ver favoritos", desactiva cualquier categoría activa */
     filtrar();
 });
 
@@ -85,11 +137,9 @@ chips.forEach(btn => {
         chips.forEach(b => {
             if (b.id === "verFavoritos") return;
             b.classList.remove("activo");
-            /* Actualiza aria-pressed para accesibilidad */
             b.setAttribute("aria-pressed", "false");
         });
         btn.classList.add("activo");
-        /* Actualiza aria-pressed para accesibilidad */
         btn.setAttribute("aria-pressed", "true");
         categoriaActiva = btn.dataset.cat;
         mostrandoFavoritos = false;
@@ -107,8 +157,7 @@ toggleOrden.addEventListener("click", () => {
     ordenarProductos();
 });
 
-/* Debounce: evita ejecutar filtrar() en cada tecla presionada,
-   espera 200ms de pausa antes de filtrar (mejor rendimiento). */
+/* Debounce para el buscador: espera 200ms antes de filtrar */
 let debounceTimer;
 buscador.addEventListener("input", () => {
     clearTimeout(debounceTimer);
@@ -120,27 +169,26 @@ ordenar.addEventListener("change", ordenarProductos);
 
 /* FILTRAR */
 function filtrar() {
-    const texto = buscador.value.toLowerCase();
+    const texto         = buscador.value.toLowerCase();
     const filtroEstacion = estacion.value;
     let visibles = 0;
-/* Recorre todas las tarjetas y decide si se muestran o no según los filtros activos */
-    document.querySelectorAll(".card").forEach(p => {
-        const nombre = (p.dataset.nombre || "").toLowerCase();
-        const categoria = p.dataset.categoria || "";
-        const est = p.dataset.estacion || "";
-        const id = p.dataset.id;
 
-        const okTexto = nombre.includes(texto);
-        const okCat = categoriaActiva === "all" || categoria === categoriaActiva;
+    document.querySelectorAll(".card").forEach(p => {
+        const nombre    = (p.dataset.nombre   || "").toLowerCase();
+        const categoria = p.dataset.categoria || "";
+        const est       = p.dataset.estacion  || "";
+        const id        = p.dataset.id;
+
+        const okTexto   = nombre.includes(texto);
+        const okCat     = categoriaActiva === "all" || categoria === categoriaActiva;
         const okEstacion = filtroEstacion === "all" || est === filtroEstacion || est === "all";
-        const okFav = !mostrandoFavoritos || favoritos.includes(id);
+        const okFav     = !mostrandoFavoritos || favoritos.includes(id);
 
         const visible = okTexto && okCat && okEstacion && okFav;
         p.style.display = visible ? "" : "none";
         if (visible) visibles++;
     });
 
-    /* Muestra un mensaje amigable si el filtro no encontró nada */
     if (sinResultados) sinResultados.hidden = visibles !== 0;
 
     ordenarProductos();
@@ -166,32 +214,31 @@ function ordenarProductos() {
 }
 
 /* VENTANA EMERGENTE (MODAL) DE PRODUCTO */
-const modal = document.getElementById("modalProducto");
-const modalBox = modal ? modal.querySelector(".modal-box") : null;
+const modal         = document.getElementById("modalProducto");
+const modalBox      = modal ? modal.querySelector(".modal-box") : null;
 const modalContenido = modal ? modal.querySelector(".modal-contenido") : null;
-const modalCerrar = modal ? modal.querySelector(".modal-cerrar") : null;
+const modalCerrar   = modal ? modal.querySelector(".modal-cerrar") : null;
 
-/* Nombres legibles para las categorías (para mostrar en la insignia del modal) */
 const NOMBRES_CATEGORIA = {
-    clasicos: "Clásicos",
-    frio: "Frío",
-    especiales: "Especiales",
-    infusiones: "Infusiones",
+    clasicos:    "Clásicos",
+    frio:        "Frío",
+    especiales:  "Especiales",
+    infusiones:  "Infusiones",
     refrescante: "Bebidas sin gas",
-    postres: "Postres",
-    extras: "Extras",
+    postres:     "Postres",
+    extras:      "Extras",
 };
-/* Abre el modal con la información del producto al hacer clic en la tarjeta */
+
 function abrirModal(card) {
     if (!modal || !modalContenido) return;
 
-    const id = card.dataset.id;
-    const nombre = card.dataset.nombre;
-    const categoria = card.dataset.categoria;
-    const precio = card.dataset.precio;
-    const imgSrc = card.querySelector("img").src;
+    const id          = card.dataset.id;
+    const nombre      = card.dataset.nombre;
+    const categoria   = card.dataset.categoria;
+    const precio      = card.dataset.precio;
+    const imgSrc      = card.querySelector("img").src;
     const descripcion = card.querySelector(".text-card")?.textContent || "";
-    const esFavorito = favoritos.includes(id);
+    const esFavorito  = favoritos.includes(id);
 
     modalContenido.innerHTML = `
         <span class="modal-categoria">${NOMBRES_CATEGORIA[categoria] || categoria}</span>
@@ -199,8 +246,11 @@ function abrirModal(card) {
         <h3 id="modalTitulo">${nombre}</h3>
         <p class="modal-descripcion">${descripcion}</p>
         <p class="precio">S/ ${parseFloat(precio).toFixed(2)}</p>
+        <button type="button" class="modal-agregar-carrito" data-id="${id}">
+            ${SVG_CARRITO_BTN} Agregar al carrito
+        </button>
         <button type="button" class="modal-fav-btn${esFavorito ? " activo" : ""}" data-id="${id}" aria-pressed="${esFavorito}">
-            ${esFavorito ? "❤ Quitar de favoritos" : "♡ Agregar a favoritos"}
+            ${esFavorito ? `${SVG_CORAZON_ACTIVO} Quitar de favoritos` : `${SVG_CORAZON} Agregar a favoritos`}
         </button>
     `;
 
@@ -208,9 +258,13 @@ function abrirModal(card) {
         toggleFavorito(id);
     });
 
+    modalContenido.querySelector(".modal-agregar-carrito").addEventListener("click", () => {
+        agregarProductoAlCarrito(card, null);
+    });
+
     modal.hidden = false;
-    document.body.style.overflow = "hidden"; // bloquea el scroll de fondo, igual que el menú móvil
-    modalCerrar.focus(); // mueve el foco al botón de cerrar (accesibilidad de teclado)
+    document.body.style.overflow = "hidden";
+    if (modalCerrar) modalCerrar.focus();
 }
 
 function cerrarModal() {
@@ -219,12 +273,8 @@ function cerrarModal() {
     document.body.style.overflow = "";
 }
 
-/* Abrir modal al hacer clic en cualquier tarjeta (excepto el corazón, que ya hace stopPropagation) */
 document.querySelectorAll(".card").forEach(card => {
     card.addEventListener("click", () => abrirModal(card));
-
-    /* Accesibilidad: permite abrir el modal con teclado (Enter o Espacio),
-       ya que las tarjetas tienen role="button" tabindex="0" en el HTML. */
     card.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
@@ -235,14 +285,12 @@ document.querySelectorAll(".card").forEach(card => {
 
 if (modalCerrar) modalCerrar.addEventListener("click", cerrarModal);
 
-/* Cerrar al hacer clic en el fondo oscuro (fuera de la caja del modal) */
 if (modal) {
     modal.addEventListener("click", (e) => {
         if (e.target === modal) cerrarModal();
     });
 }
 
-/* Cerrar con la tecla ESC */
 document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modal && !modal.hidden) cerrarModal();
 });

@@ -3,8 +3,8 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(38, 56, 46, 0.55);
-    backdrop-filter: blur(2px);
+    background: rgba(20, 14, 10, 0.65);
+    backdrop-filter: blur(3px);
     align-items: center;
     justify-content: center;
     z-index: 2000;
@@ -17,14 +17,17 @@
     opacity: 1;
 }
 
+/* ===== CAJA ===== */
 .modal-caja {
-    background: #F5F1E9;
+    position: relative;
+    background: var(--bg-surface, #E4DBD1);
+    border: 1px solid var(--border-color, #D3C4AE);
     border-radius: 16px;
     max-width: 420px;
     width: 90%;
     padding: 36px 30px 28px;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
 
     transform: translateY(24px) scale(0.96);
     opacity: 0;
@@ -36,13 +39,14 @@
     opacity: 1;
 }
 
+/* ===== ÍCONO ===== */
 .modal-icono {
     width: 56px;
     height: 56px;
     margin: 0 auto 16px;
     border-radius: 50%;
-    background: #BFD9C3;
-    color: #26382E;
+    background: var(--bg-header, #1b2d29);
+    color: var(--text-on-dark, #E4DBD1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,25 +54,27 @@
 }
 
 .modal-icono--error {
-    background: #F3D3CB;
-    color: #A83232;
+    background: rgba(192, 57, 43, 0.18);
+    color: #C0392B;
 }
 
+/* ===== TEXTOS ===== */
 .modal-titulo {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.5rem;
-    color: #26382E;
+    color: var(--text-primary, #322817);
     margin: 0 0 10px;
 }
 
 .modal-texto {
     font-family: 'Poppins', sans-serif;
     font-size: 0.95rem;
-    color: #667E6B;
+    color: var(--text-secondary, #544736);
     line-height: 1.6;
     margin: 0 0 24px;
 }
 
+/* ===== BOTÓN CERRAR (texto) ===== */
 .modal-cerrar {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
@@ -80,28 +86,56 @@
     border-radius: 10px;
     padding: 12px 28px;
     cursor: pointer;
-    transition: background 0.25s ease, transform 0.15s ease;
+    transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
 }
 
 .modal-cerrar:hover {
     background: #935c3d;
     transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(168, 109, 73, 0.35);
 }
 
+.modal-cerrar:active {
+    transform: translateY(0);
+}
+
+/* ===== BOTÓN X (esquina) ===== */
 .modal-cerrar-x {
     position: absolute;
     top: 14px;
     right: 16px;
     background: transparent;
-    border: none;
-    font-size: 1.3rem;
+    border: 1px solid var(--border-color, #D3C4AE);
+    border-radius: 6px;
+    font-size: 1.2rem;
     line-height: 1;
-    color: #667E6B;
+    color: var(--text-secondary, #544736);
     cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
-.modal-caja {
-    position: relative;
+.modal-cerrar-x:hover {
+    background: var(--border-color, #D3C4AE);
+    color: var(--text-primary, #322817);
+}
+
+/* ===== MODO OSCURO ===== */
+[data-theme="dark"] .modal-overlay {
+    background: rgba(10, 8, 5, 0.75);
+}
+
+[data-theme="dark"] .modal-caja {
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .modal-icono--error {
+    background: rgba(232, 112, 112, 0.15);
+    color: #e87070;
 }
 
 @media (max-width: 480px) {

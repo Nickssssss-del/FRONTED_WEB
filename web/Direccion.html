@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <title>Bruma Café - Ubicación</title>
@@ -24,7 +24,9 @@
           rel="stylesheet"
           type="text/css"/>
     <link href="css/menu-responsive.css" rel="stylesheet" type="text/css"/>
-        <link href="Style_Theme.css" rel="stylesheet" type="text/css"/>
+    <link href="Style_Theme.css" rel="stylesheet" type="text/css"/>
+    <link href="css/toast.css" rel="stylesheet" type="text/css"/>
+    <link href="css/carrito.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -35,12 +37,12 @@
              alt="Logo"
              class="logo"/>
     </div>
-        <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menu de navegacion" aria-expanded="false" aria-controls="menu-principal">
-            <span class="nav-toggle__barra"></span>
-            <span class="nav-toggle__barra"></span>
-            <span class="nav-toggle__barra"></span>
-        </button>
-        <nav class="menu" id="menu-principal">
+    <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menu de navegacion" aria-expanded="false" aria-controls="menu-principal">
+        <span class="nav-toggle__barra"></span>
+        <span class="nav-toggle__barra"></span>
+        <span class="nav-toggle__barra"></span>
+    </button>
+    <nav class="menu" id="menu-principal">
         <div class="menu-logo">
             <img src="Imagenes/LOGO1.png" alt="Logo">
         </div>
@@ -49,8 +51,12 @@
         <a href="Promociones.html">Promociones</a>
         <a href="Direccion.html">Ubicación</a>
         <a href="Registrarse.html">Registrarse</a>
+        <a href="carrito.html" class="nav-carrito" aria-label="Ver carrito de compras">
+            <span class="carrito-icono"><img src="Imagenes/icono-carrito.svg" alt="" class="nav-carrito-img" aria-hidden="true"></span>
+            <span class="carrito-contador" id="carrito-contador">0</span>
+        </a>
     </nav>
-        <div id="nav-overlay" class="nav-overlay"></div>
+    <div id="nav-overlay" class="nav-overlay"></div>
 </header>
 
 <div class="banner-seccion">
@@ -58,7 +64,8 @@
     <div class="banner-overlay">
 
         <p class="banner-subtitulo">
-            📍 Tu mesa está lista — ¡Descubre nuestra ubicación a continuación!
+            <img src="Imagenes/icono-ubicacion.svg" alt="" class="banner-icono-ubicacion" aria-hidden="true">
+            Tu mesa está lista — ¡Descubre nuestra ubicación a continuación!
         </p>
 
         <div class="contenedor-interactivo">
@@ -80,17 +87,17 @@
 
                 <label for="tab1"
                        class="boton-tab">
-                       🏛️ El Espacio
+                       <img src="Imagenes/icono-edificio.svg" alt="" class="tab-icono" aria-hidden="true"> El Espacio
                 </label>
 
                 <label for="tab2"
                        class="boton-tab">
-                       ☕ El Café
+                       <img src="Imagenes/icono-taza-cafe.svg" alt="" class="tab-icono" aria-hidden="true"> El Café
                 </label>
 
                 <label for="tab3"
                        class="boton-tab">
-                       🌿 La Experiencia
+                       <img src="Imagenes/icono-hoja.svg" alt="" class="tab-icono" aria-hidden="true"> La Experiencia
                 </label>
 
             </div>
@@ -158,7 +165,9 @@
 
         <div class="columna-cuadro">
 
-            <div class="icono-titulo">🕐</div>
+            <div class="icono-titulo" aria-hidden="true">
+                <img src="Imagenes/icono-horario.svg" alt="" aria-hidden="true">
+            </div>
 
             <h2 class="titulo-seccion">
                 Horario de Atención
@@ -216,7 +225,9 @@
 
         <div class="columna-cuadro">
 
-            <div class="icono-titulo">📍</div>
+            <div class="icono-titulo" aria-hidden="true">
+                <img src="Imagenes/icono-ubicacion.svg" alt="" class="icono-columna-ubicacion" aria-hidden="true">
+            </div>
 
             <h2 class="titulo-seccion">
                 Nuestra Ubicación
@@ -235,7 +246,7 @@
                     </p>
 
                     <p class="texto-referencia">
-                        🏛️ Frente al Parque Central
+                        <img src="Imagenes/icono-edificio.svg" alt="" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;opacity:0.8;" aria-hidden="true"> Frente al Parque Central
                     </p>
 
                 </div>
@@ -245,7 +256,8 @@
                     <iframe
                         src="https://maps.google.com/maps?q=Calle%207%20Ica%20Peru&t=&z=15&ie=UTF8&iwloc=&output=embed"
                         allowfullscreen=""
-                        loading="lazy">
+                        loading="lazy"
+                        title="Mapa de ubicación de Bruma Café">
                     </iframe>
 
                 </div>
@@ -298,8 +310,10 @@
     </div>
 </footer>
 
+    <script src="js/Toast.js"></script>
+    <script src="js/Carrito.js"></script>
     <script src="js/HamburgerMenu.js"></script>
-    <button id="theme-toggle" aria-label="Cambiar a modo oscuro">🌙</button>
+    <button id="theme-toggle" aria-label="Cambiar a modo oscuro"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
     <script src="theme-toggle.js"></script>
 </body>
 </html>

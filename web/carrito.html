@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Bruma Café - Carrito</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="Style_header.css" rel="stylesheet" type="text/css"/>
+    <link href="Style_Footer.css" rel="stylesheet" type="text/css"/>
+    <link href="Style_Theme.css" rel="stylesheet" type="text/css"/>
+    <link href="css/menu-responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="css/toast.css" rel="stylesheet" type="text/css"/>
+    <link href="css/carrito.css" rel="stylesheet" type="text/css"/>
+    <link href="css/formulario-validacion.css" rel="stylesheet" type="text/css"/>
+    <link href="css/custom-select.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <header>
+        <div class="logo-area">
+            <img src="Imagenes/LOGO1.png" alt="Logo" class="logo"/>
+        </div>
+        <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menu de navegacion" aria-expanded="false" aria-controls="menu-principal">
+            <span class="nav-toggle__barra"></span>
+            <span class="nav-toggle__barra"></span>
+            <span class="nav-toggle__barra"></span>
+        </button>
+        <nav class="menu" id="menu-principal">
+            <div class="menu-logo">
+                <img src="Imagenes/LOGO1.png" alt="Logo">
+            </div>
+            <a href="index.html">Inicio</a>
+            <a href="CATALOGO.html">Carta</a>
+            <a href="Promociones.html">Promociones</a>
+            <a href="Direccion.html">Ubicación</a>
+            <a href="Registrarse.html">Registrarse</a>
+            <a href="carrito.html" class="nav-carrito" aria-label="Ver carrito de compras">
+                <span class="carrito-icono"><img src="Imagenes/icono-carrito.svg" alt="" class="nav-carrito-img" aria-hidden="true"></span>
+                <span class="carrito-contador" id="carrito-contador">0</span>
+            </a>
+        </nav>
+        <div id="nav-overlay" class="nav-overlay"></div>
+    </header>
+
+    <main class="carrito-main">
+        <h1 class="carrito-titulo">Tu carrito</h1>
+        <p class="carrito-subtitulo" id="carrito-resumen-texto">Revisa tus productos antes de finalizar la compra.</p>
+
+        <!-- Estado vacío -->
+        <div id="carrito-vacio" class="carrito-vacio" hidden>
+            <span class="carrito-vacio-icono" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+            </span>
+            <p>Tu carrito está vacío por ahora.</p>
+            <a href="CATALOGO.html" class="boton">Ver la carta</a>
+        </div>
+
+        <!-- Layout con productos y resumen -->
+        <div class="carrito-layout" id="carrito-layout" hidden>
+            <section class="carrito-lista" id="carrito-lista" aria-label="Productos en el carrito"></section>
+
+            <aside class="carrito-resumen">
+                <h2>Resumen del pedido</h2>
+                <div class="carrito-resumen-body">
+                    <div class="carrito-resumen-fila">
+                        <span>Subtotal</span>
+                        <span id="resumen-subtotal">S/ 0.00</span>
+                    </div>
+                    <div class="carrito-resumen-fila">
+                        <span>IGV (18%)</span>
+                        <span id="resumen-igv">S/ 0.00</span>
+                    </div>
+                    <div class="carrito-resumen-fila total">
+                        <span>Total</span>
+                        <span id="resumen-total">S/ 0.00</span>
+                    </div>
+                </div>
+                <div class="carrito-resumen-acciones">
+                    <button type="button" class="btn-carrito primario" id="btn-finalizar-compra">Finalizar compra</button>
+                    <a href="CATALOGO.html" class="btn-carrito secundario">Seguir comprando</a>
+                    <button type="button" class="btn-carrito peligro" id="btn-vaciar-carrito">Vaciar carrito</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- ===================== FORMULARIO DE COMPRA ===================== -->
+    <div class="checkout-overlay" id="checkout-overlay">
+        <div class="checkout-caja" role="dialog" aria-modal="true" aria-labelledby="checkout-titulo">
+
+            <!-- Header del modal -->
+            <div class="checkout-caja-header">
+                <button type="button" class="checkout-cerrar" id="checkout-cerrar" aria-label="Cerrar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+                <h2 id="checkout-titulo">Finalizar compra</h2>
+                <p class="checkout-ayuda">Completa tus datos para generar tu boleta de compra.</p>
+            </div>
+
+            <!-- Cuerpo del formulario -->
+            <div class="checkout-caja-body">
+                <form id="form-checkout" novalidate>
+
+                    <p class="checkout-seccion-label">Datos personales</p>
+                    <div class="checkout-grid">
+                        <div class="checkout-campo">
+                            <label for="chk-nombre">Nombre</label>
+                            <input type="text" id="chk-nombre" name="nombre" data-campo="nombre" autocomplete="given-name">
+                            <span class="mensaje-error" data-error-de="nombre"></span>
+                        </div>
+                        <div class="checkout-campo">
+                            <label for="chk-apellido">Apellido</label>
+                            <input type="text" id="chk-apellido" name="apellido" data-campo="apellido" autocomplete="family-name">
+                            <span class="mensaje-error" data-error-de="apellido"></span>
+                        </div>
+                    </div>
+
+                    <div class="checkout-grid">
+                        <div class="checkout-campo">
+                            <label for="chk-dni">DNI</label>
+                            <input type="text" id="chk-dni" name="dni" data-campo="dni" inputmode="numeric" maxlength="8">
+                            <span class="mensaje-error" data-error-de="dni"></span>
+                        </div>
+                        <div class="checkout-campo">
+                            <label for="chk-telefono">Teléfono</label>
+                            <input type="text" id="chk-telefono" name="telefono" data-campo="telefono" inputmode="numeric" maxlength="9" pattern="[0-9]{9}" autocomplete="tel">
+                            <span class="mensaje-error" data-error-de="telefono"></span>
+                        </div>
+                    </div>
+
+                    <p class="checkout-seccion-label">Contacto y entrega</p>
+                    <div class="checkout-campo">
+                        <label for="chk-correo">Correo electrónico</label>
+                        <input type="email" id="chk-correo" name="correo" data-campo="correo" autocomplete="email">
+                        <span class="mensaje-error" data-error-de="correo"></span>
+                    </div>
+
+                    <div class="checkout-campo">
+                        <label for="chk-direccion">Dirección de entrega</label>
+                        <input type="text" id="chk-direccion" name="direccion" data-campo="direccion" autocomplete="street-address">
+                        <span class="mensaje-error" data-error-de="direccion"></span>
+                    </div>
+
+                    <p class="checkout-seccion-label">Pago</p>
+                    <div class="checkout-campo">
+                        <label for="chk-metodo-pago">Método de pago</label>
+                        <select id="chk-metodo-pago" name="metodoPago" data-campo="metodoPago" data-cs-skin="boxed">
+                            <option value="">Selecciona una opción</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Tarjeta de crédito/débito">Tarjeta de crédito/débito</option>
+                            <option value="Yape/Plin">Yape / Plin</option>
+                            <option value="Transferencia bancaria">Transferencia bancaria</option>
+                        </select>
+                        <span class="mensaje-error" data-error-de="metodoPago"></span>
+                    </div>
+
+                    <div class="checkout-campo">
+                        <label for="chk-observaciones">Observaciones (opcional)</label>
+                        <textarea id="chk-observaciones" name="observaciones" data-campo="observaciones" placeholder="Ej. Sin azúcar, tocar el timbre, etc."></textarea>
+                    </div>
+
+                    <div class="checkout-acciones">
+                        <button type="button" class="btn-carrito secundario" id="btn-cancelar-checkout">Cancelar</button>
+                        <button type="submit" class="btn-carrito primario" id="btn-confirmar-compra">Confirmar compra</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== BOLETA VIRTUAL ===================== -->
+    <div class="boleta-overlay" id="boleta-overlay">
+        <div class="boleta-caja" role="dialog" aria-modal="true" aria-labelledby="boleta-titulo-negocio">
+
+            <button type="button" class="boleta-cerrar" id="boleta-cerrar" aria-label="Cerrar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+
+            <!-- Este div es el cuerpo completo de la boleta -->
+            <div id="boleta-contenido">
+
+                <!-- Cabecera verde oscuro -->
+                <div class="boleta-header">
+                    <img src="Imagenes/LOGO1.png" alt="Logo Bruma Café">
+                    <h2 id="boleta-titulo-negocio">Bruma Café</h2>
+                    <p class="boleta-header-subtitulo">BOLETA DE VENTA</p>
+                </div>
+
+                <!-- Efecto troquelado -->
+                <div class="boleta-perforado" aria-hidden="true"></div>
+
+                <!-- Bloque número / fecha / hora -->
+                <div class="boleta-info-bloque">
+                    <div class="boleta-info-item">
+                        <label>N° Boleta</label>
+                        <span id="boleta-numero-val">—</span>
+                    </div>
+                    <div class="boleta-info-item">
+                        <label>Fecha</label>
+                        <span id="boleta-fecha-val">—</span>
+                    </div>
+                    <div class="boleta-info-item">
+                        <label>Hora</label>
+                        <span id="boleta-hora-val">—</span>
+                    </div>
+                </div>
+                <!-- Elemento legacy para compatibilidad con código anterior -->
+                <p id="boleta-numero" style="display:none"></p>
+
+                <!-- Datos del cliente -->
+                <div class="boleta-seccion">
+                    <span class="boleta-seccion-titulo">Datos del Cliente</span>
+                    <div class="boleta-datos-cliente" id="boleta-datos-cliente"></div>
+                </div>
+
+                <!-- Detalle de la compra -->
+                <div class="boleta-seccion" style="padding-left:0;padding-right:0;">
+                    <span class="boleta-seccion-titulo" style="padding:0 28px;">Detalle de la Compra</span>
+                    <table class="boleta-tabla">
+                        <thead>
+                            <tr>
+                                <th style="padding-left:28px;">Producto</th>
+                                <th class="num">Cant.</th>
+                                <th class="num">P. Unit.</th>
+                                <th class="num" style="padding-right:28px;">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="boleta-productos"></tbody>
+                    </table>
+                </div>
+
+                <!-- Totales -->
+                <div class="boleta-seccion">
+                    <span class="boleta-seccion-titulo">Totales</span>
+                    <div class="boleta-totales" id="boleta-totales"></div>
+                </div>
+
+                <!-- Método de pago -->
+                <div class="boleta-seccion">
+                    <span class="boleta-seccion-titulo">Pago</span>
+                    <p class="boleta-metodo-pago" id="boleta-metodo-pago"></p>
+                </div>
+
+                <!-- Mensaje de agradecimiento -->
+                <div class="boleta-seccion" style="border-bottom:none;">
+                    <p class="boleta-agradecimiento">
+                        "Gracias por su compra.<br>Esperamos volver a atenderlo."
+                    </p>
+                </div>
+
+                <!-- Pie de página del café -->
+                <div class="boleta-footer-info">
+                    <p>Bruma Café &nbsp;|&nbsp; Calle 7 # 6-56, Frente al Parque Central</p>
+                    <p>+51 987 654 321 &nbsp;|&nbsp; brumacafe@ejemplo.com</p>
+                </div>
+
+            </div><!-- /boleta-contenido -->
+
+            <!-- Botones de acción fuera del contenido de la boleta -->
+            <div class="boleta-acciones">
+                <button type="button" class="btn-carrito secundario" id="btn-cerrar-boleta">Cerrar</button>
+                <button type="button" class="btn-carrito primario" id="btn-descargar-pdf">Descargar PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="f-pie">
+        <div class="f-fila">
+            <div class="f-columna">
+                <h2>Bruma Café</h2>
+                <p>Disfruta del mejor café artesanal en un ambiente acogedor.</p>
+            </div>
+            <div class="f-columna">
+                <h3>Información</h3>
+                <p>
+                    <img src="Imagenes/mapas-y-banderas.png" alt="ubicacion" class="footer-icon"/>
+                    Calle 7 # 6-56, Frente al Parque Central
+                </p>
+                <p>
+                    <img src="Imagenes/telefono.png" alt="telefono" class="footer-icon"/>
+                    +51 987 654 321
+                </p>
+            </div>
+            <div class="f-columna">
+                <h3>Horario</h3>
+                <p>
+                    <img src="Imagenes/reloj.png" alt="reloj" class="footer-icon"/>
+                    Lun - Vie: 7:00 - 21:00
+                </p>
+                <p>
+                    <img src="Imagenes/reloj.png" alt="reloj" class="footer-icon"/>
+                    Sáb - Dom: 8:00 - 22:00
+                </p>
+            </div>
+        </div>
+        <div class="f-derechos">
+            <hr>
+            <p>© 2026 Bruma Café. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Librería jsPDF para exportar la boleta (html2canvas ya no se usa) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="js/Toast.js"></script>
+    <script src="js/Carrito.js"></script>
+    <script src="js/HamburgerMenu.js"></script>
+    <script src="js/CarritoPagina.js"></script>
+    <script src="js/CustomSelect.js"></script>
+    <button id="theme-toggle" aria-label="Cambiar a modo oscuro"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+    <script src="theme-toggle.js"></script>
+</body>
+</html>

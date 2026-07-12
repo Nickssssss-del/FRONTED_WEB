@@ -635,3 +635,17 @@ color: var(--text-on-dark);
         height:180px;
     }
 }
+/* ===== ÍCONOS EN PESTAÑAS DE DIRECCIÓN (reemplazo de emojis) ===== */
+.tab-icono {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    margin-right: 5px;
+    /* Fuerza color negro para que sea visible en modo claro */
+    filter: brightness(0) saturate(100%);
+}
+
+[data-theme="dark"] .tab-icono {
+    /* Invierte a blanco para visibilidad en modo oscuro */
+    filter: brightness(0) saturate(100%) invert(1);
+}

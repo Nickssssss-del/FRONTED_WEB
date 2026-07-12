@@ -159,7 +159,7 @@ body {
 }
 /* BADGE - etiqueta decorativa arriba del título */
 .contenido-formulario::before {
-    content: "☕ Únete al club Bruma";
+    content: "Únete al club Bruma";
     display: inline-block;
     font-size: 0.72rem;
     font-weight: bold;
