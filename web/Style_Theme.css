@@ -34,8 +34,13 @@
 }
 
 
-/* Transición suave al cambiar de tema */
+/* BUG CORREGIDO: el <html> no tenia background-color propio, solo
+   <body>. En moviles (especialmente iOS Safari), al hacer scroll
+   "elastico" mas alla del limite de la pagina (pull/overscroll) se
+   ve el fondo de <html>, que por defecto es blanco. Ahora usa el
+   mismo color de fondo del tema, tanto en modo claro como oscuro. */
 html {
+    background-color: var(--bg-page);
     transition: background-color 0.25s ease;
 }
 body, header, footer, .container, section, div, nav, a, p, h1, h2, h3, h4, input, select, button, table, th, td {

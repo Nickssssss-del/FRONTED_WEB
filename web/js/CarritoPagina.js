@@ -128,7 +128,7 @@ function inicializarPaginaCarrito() {
         apellido:   (v) => (!v.trim() ? "Ingresa tu apellido."   : (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,}$/.test(v) ? "Apellido inválido."                        : null)),
         dni:        (v) => (!v.trim() ? "Ingresa tu DNI."        : (!/^\d{8}$/.test(v)                        ? "El DNI debe tener exactamente 8 dígitos."   : null)),
         telefono:   (v) => (!v.trim() ? "Ingresa tu teléfono."   : (!/^\d{9}$/.test(v.trim())                 ? "Debe tener exactamente 9 dígitos numéricos." : null)),
-        correo:     (v) => (!v.trim() ? "Ingresa tu correo."     : (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)     ? "Correo inválido."                           : null)),
+        correo:     (v) => (!v.trim() ? "Ingresa tu correo."     : (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)     ? "Ingresa un correo electrónico válido (ejemplo: nombre@correo.com)."      : null)),
         direccion:  (v) => (!v.trim() ? "Ingresa tu dirección."  : null),
         metodoPago: (v) => (!v        ? "Selecciona un método."  : null),
     };
@@ -141,7 +141,16 @@ function inicializarPaginaCarrito() {
 
         const error = regla(input.value);
         input.classList.toggle("campo-error", Boolean(error));
-        if (mensajeEl) mensajeEl.textContent = error || "";
+        input.setAttribute("aria-invalid", String(Boolean(error)));
+
+        if (mensajeEl) {
+            mensajeEl.textContent = error || "";
+            /* Mismo mecanismo que el formulario de Registrarse.html
+               (ver css/formulario-validacion.css: .mensaje-error--visible),
+               así el mensaje de error se muestra/oculta igual en ambos
+               formularios, con el mismo ícono "!". */
+            mensajeEl.classList.toggle("mensaje-error--visible", Boolean(error));
+        }
         return !error;
     }
 
@@ -263,6 +272,10 @@ function inicializarPaginaCarrito() {
         window.carrito.vaciar();
         formCheckout.reset();
         formCheckout.querySelectorAll(".campo-error").forEach(el => el.classList.remove("campo-error"));
+        formCheckout.querySelectorAll(".mensaje-error--visible").forEach(el => {
+            el.classList.remove("mensaje-error--visible");
+            el.textContent = "";
+        });
     });
 
     /* ---------- GENERACIÓN DE BOLETA ---------- */
