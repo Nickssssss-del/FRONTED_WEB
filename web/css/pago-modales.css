@@ -1,0 +1,284 @@
+/* =============================================================
+   pago-modales.css
+   Ventanas emergentes del proceso de pago en carrito.html:
+   Yape, Transferencia bancaria, POS y Efectivo.
+   Reutiliza la misma paleta de variables (Style_Theme.css) y el
+   mismo lenguaje visual que .checkout-overlay / .modal-overlay
+   para mantener coherencia con el resto del sitio.
+   ============================================================= */
+
+.pago-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 10, 6, 0.72);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 5000;
+    padding: 24px 16px;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.28s ease;
+}
+
+.pago-modal-overlay.pago-modal-visible {
+    display: flex;
+    opacity: 1;
+}
+
+.pago-modal-caja {
+    position: relative;
+    background: var(--bg-page);
+    border: 1.5px solid var(--border-color);
+    border-radius: 20px;
+    max-width: 420px;
+    width: 100%;
+    padding: 32px 28px 28px;
+    text-align: center;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+
+    transform: translateY(26px) scale(0.96);
+    opacity: 0;
+    transition: transform 0.32s cubic-bezier(.22,.9,.36,1), opacity 0.3s ease;
+}
+
+.pago-modal-overlay.pago-modal-visible .pago-modal-caja {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.pago-modal-cerrar-x {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.2rem;
+    line-height: 1;
+    color: var(--text-secondary);
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.pago-modal-cerrar-x:hover {
+    background: var(--border-color);
+    color: var(--text-primary);
+}
+
+.pago-modal-icono {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: var(--bg-header);
+    color: var(--tan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pago-modal-icono--exito {
+    background: rgba(76, 140, 91, 0.16);
+    color: #4C8C5B;
+}
+
+.pago-modal-titulo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin: 0 0 6px;
+}
+
+.pago-modal-subtitulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin: 0 0 18px;
+}
+
+.pago-modal-texto {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 22px;
+}
+
+.pago-modal-boton {
+    margin-top: 6px;
+}
+
+/* Fila con el botón principal ("He realizado el pago") y el de Cancelar */
+.pago-modal-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pago-modal-acciones .pago-modal-boton {
+    margin-top: 0;
+    width: 100%;
+}
+
+.pago-modal-estado {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    min-height: 18px;
+    margin: 4px 0 14px;
+}
+
+.pago-modal-estado.pago-estado--verificando {
+    color: var(--burnt-orange);
+    font-weight: 600;
+}
+
+/* =============================================================
+   YAPE
+   ============================================================= */
+.yape-qr-marco {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 14px;
+    width: fit-content;
+    margin: 0 auto 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+
+.yape-qr {
+    /* Antes: display:grid con celdas al azar (qr-celda), un patrón
+       puramente decorativo que no era un QR real ni escaneable.
+       Ahora QRCode.js dibuja un <canvas> real dentro de este
+       contenedor (ver PagoModales.js -> _generarQrYape), así que
+       solo necesitamos centrarlo y reservar el mismo tamaño. */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 176px;
+    height: 176px;
+    line-height: 0;
+}
+
+.yape-qr canvas,
+.yape-qr img {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.yape-datos {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    text-align: left;
+    background: var(--bg-surface);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+}
+
+.yape-datos p {
+    margin: 0 0 6px;
+}
+
+.yape-datos p:last-child { margin-bottom: 0; }
+
+.yape-temporizador {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-on-dark);
+    background: var(--bg-header);
+    border-radius: 999px;
+    padding: 8px 18px;
+    margin-bottom: 14px;
+}
+
+.yape-temporizador-icono {
+    display: inline-flex;
+    color: var(--tan);
+}
+
+/* =============================================================
+   TRANSFERENCIA BANCARIA
+   ============================================================= */
+.transf-datos {
+    text-align: left;
+    background: var(--bg-surface);
+    border-radius: 12px;
+    padding: 6px 16px;
+    margin-bottom: 14px;
+}
+
+.transf-fila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+}
+
+.transf-fila:last-child {
+    border-bottom: none;
+}
+
+.transf-fila span {
+    color: var(--text-secondary);
+}
+
+.transf-fila strong {
+    color: var(--text-primary);
+    text-align: right;
+}
+
+.transf-instrucciones {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0 0 6px;
+}
+
+/* =============================================================
+   MODO OSCURO
+   ============================================================= */
+[data-theme="dark"] .pago-modal-overlay {
+    background: rgba(8, 6, 4, 0.8);
+}
+
+/* =============================================================
+   RESPONSIVE
+   ============================================================= */
+@media (max-width: 480px) {
+    .pago-modal-caja {
+        padding: 26px 18px 22px;
+    }
+
+    .yape-qr {
+        width: 148px;
+        height: 148px;
+    }
+
+    .transf-fila {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    .transf-fila strong {
+        text-align: left;
+    }
+}

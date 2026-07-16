@@ -266,16 +266,31 @@ function inicializarPaginaCarrito() {
         };
 
         cerrarCheckout();
-        generarYMostrarBoleta(datosCliente);
 
-        // Vaciar el carrito y limpiar el formulario
-        window.carrito.vaciar();
-        formCheckout.reset();
-        formCheckout.querySelectorAll(".campo-error").forEach(el => el.classList.remove("campo-error"));
-        formCheckout.querySelectorAll(".mensaje-error--visible").forEach(el => {
-            el.classList.remove("mensaje-error--visible");
-            el.textContent = "";
-        });
+        /* Función que limpia el carrito y el formulario una vez que el
+           flujo de pago (ventana emergente) haya concluido con éxito. */
+        function continuarLuegoDePago() {
+            generarYMostrarBoleta(datosCliente);
+
+            window.carrito.vaciar();
+            formCheckout.reset();
+            formCheckout.querySelectorAll(".campo-error").forEach(el => el.classList.remove("campo-error"));
+            formCheckout.querySelectorAll(".mensaje-error--visible").forEach(el => {
+                el.classList.remove("mensaje-error--visible");
+                el.textContent = "";
+            });
+        }
+
+        /* Según el método de pago elegido, se abre la ventana emergente
+           correspondiente (Yape, Transferencia, POS o Efectivo). Solo al
+           confirmar el pago en esa ventana se genera la boleta. Si por
+           algún motivo el gestor de modales no está disponible, se
+           continúa directamente para no bloquear la compra. */
+        if (window.gestorPagoModales) {
+            window.gestorPagoModales.iniciarPago(datosCliente.metodoPago, resumenActual.total, continuarLuegoDePago);
+        } else {
+            continuarLuegoDePago();
+        }
     });
 
     /* ---------- GENERACIÓN DE BOLETA ---------- */

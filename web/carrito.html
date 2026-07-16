@@ -14,6 +14,7 @@
     <link href="css/carrito.css" rel="stylesheet" type="text/css"/>
     <link href="css/formulario-validacion.css" rel="stylesheet" type="text/css"/>
     <link href="css/custom-select.css" rel="stylesheet" type="text/css"/>
+    <link href="css/pago-modales.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <header>
@@ -267,6 +268,91 @@
         </div>
     </div>
 
+    <!-- ===================== MODALES DE MÉTODOS DE PAGO ===================== -->
+
+    <!-- YAPE -->
+    <div class="pago-modal-overlay" id="modal-pago-yape">
+        <div class="pago-modal-caja" role="dialog" aria-modal="true" aria-labelledby="yape-titulo">
+            <button type="button" class="pago-modal-cerrar-x" aria-label="Cerrar">&times;</button>
+            <h3 id="yape-titulo" class="pago-modal-titulo">Paga con Yape</h3>
+            <p class="pago-modal-subtitulo">Escanea el código QR desde tu app Yape</p>
+
+            <div class="yape-qr-marco">
+                <div class="yape-qr" data-yape-qr></div>
+            </div>
+
+            <div class="yape-datos">
+                <p><strong>Yape a:</strong> 987 654 321</p>
+                <p><strong>Negocio:</strong> Bruma Café</p>
+                <p><strong>Monto a pagar:</strong> <span data-yape-monto>S/ 0.00</span></p>
+            </div>
+
+            <div class="yape-temporizador">
+                <span class="yape-temporizador-icono" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </span>
+                Expira en <span data-yape-timer>05:00</span>
+            </div>
+
+            <p class="pago-modal-estado" data-yape-estado></p>
+
+            <div class="pago-modal-acciones">
+                <button type="button" class="btn-carrito primario pago-modal-boton" data-yape-confirmar>He realizado el pago</button>
+                <button type="button" class="btn-carrito secundario pago-modal-boton" data-yape-cancelar>Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSFERENCIA BANCARIA -->
+    <div class="pago-modal-overlay" id="modal-pago-transferencia">
+        <div class="pago-modal-caja" role="dialog" aria-modal="true" aria-labelledby="transf-titulo">
+            <button type="button" class="pago-modal-cerrar-x" aria-label="Cerrar">&times;</button>
+            <h3 id="transf-titulo" class="pago-modal-titulo">Transferencia bancaria</h3>
+            <p class="pago-modal-subtitulo">Realiza la transferencia con los siguientes datos</p>
+
+            <div class="transf-datos">
+                <div class="transf-fila"><span>Banco</span><strong>Banco de la Nación</strong></div>
+                <div class="transf-fila"><span>Titular</span><strong>Bruma Café S.A.C.</strong></div>
+                <div class="transf-fila"><span>N° de cuenta</span><strong>0011-0245-0200123456</strong></div>
+                <div class="transf-fila"><span>CCI</span><strong>002-011-000245020012356-4</strong></div>
+                <div class="transf-fila"><span>Monto total</span><strong data-transf-monto>S/ 0.00</strong></div>
+                <div class="transf-fila"><span>Código de operación</span><strong data-transf-codigo>—</strong></div>
+            </div>
+
+            <p class="transf-instrucciones">Realiza la transferencia desde tu banca móvil o agencia y conserva el código de operación como referencia de tu pago.</p>
+
+            <p class="pago-modal-estado" data-transf-estado></p>
+
+            <button type="button" class="btn-carrito primario pago-modal-boton" data-transf-confirmar>He realizado la transferencia</button>
+        </div>
+    </div>
+
+    <!-- POS (TARJETA DE CRÉDITO/DÉBITO) -->
+    <div class="pago-modal-overlay" id="modal-pago-pos">
+        <div class="pago-modal-caja" role="dialog" aria-modal="true" aria-labelledby="pos-titulo">
+            <button type="button" class="pago-modal-cerrar-x" aria-label="Cerrar">&times;</button>
+            <div class="pago-modal-icono" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <h3 id="pos-titulo" class="pago-modal-titulo">Pago con POS</h3>
+            <p class="pago-modal-texto">Dirígete al área de caja para realizar el pago con tarjeta mediante nuestro terminal POS.</p>
+            <button type="button" class="btn-carrito primario pago-modal-boton" data-pos-entendido>Entendido</button>
+        </div>
+    </div>
+
+    <!-- EFECTIVO -->
+    <div class="pago-modal-overlay" id="modal-pago-efectivo">
+        <div class="pago-modal-caja" role="dialog" aria-modal="true" aria-labelledby="efectivo-titulo">
+            <button type="button" class="pago-modal-cerrar-x" aria-label="Cerrar">&times;</button>
+            <div class="pago-modal-icono pago-modal-icono--exito" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <h3 id="efectivo-titulo" class="pago-modal-titulo">Gracias por tu compra</h3>
+            <p class="pago-modal-texto">Tu pedido ha sido registrado correctamente.<br>Puedes acercarte a caja para realizar el pago en efectivo.</p>
+            <button type="button" class="btn-carrito primario pago-modal-boton" data-efectivo-aceptar>Aceptar</button>
+        </div>
+    </div>
+
     <footer class="f-pie">
         <div class="f-fila">
             <div class="f-columna">
@@ -304,10 +390,13 @@
 
     <!-- Librería jsPDF para exportar la boleta (html2canvas ya no se usa) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- QRCode.js: genera el QR real (solo demo, ver PagoModales.js -> _generarQrYape) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script src="js/Toast.js"></script>
     <script src="js/Carrito.js"></script>
     <script src="js/HamburgerMenu.js"></script>
+    <script src="js/PagoModales.js"></script>
     <script src="js/CarritoPagina.js"></script>
     <script src="js/CustomSelect.js"></script>
     <button id="theme-toggle" aria-label="Cambiar a modo oscuro"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>

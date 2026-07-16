@@ -202,11 +202,21 @@ body:has(.carrito-main) * {
    PÁGINA carrito.html — Layout principal
    ============================================================= */
 .carrito-main {
+    /* Antes: min-height:60vh, un valor fijo sin relación con el header/footer
+       reales. En tablets (768x1024, 820x1180, etc.) eso dejaba una franja
+       vacía grande entre el contenido y el footer, o el footer "flotando"
+       antes del final de la pantalla. Ahora .carrito-main es un ítem flex
+       de <body> (ver Style_Footer.css) y flex:1 hace que crezca para llenar
+       exactamente el espacio disponible entre el header y el footer,
+       sin alturas fijas ni huecos. */
     max-width: 1060px;
+    width: 100%;
     margin: 0 auto;
-    padding: 52px 24px 100px;
+    padding: 52px 24px 60px;
     box-sizing: border-box;
-    min-height: 60vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .carrito-titulo {
@@ -448,9 +458,27 @@ body:has(.carrito-main) * {
 
 /* ── Estado vacío ── */
 .carrito-vacio {
+    /* Ahora .carrito-main es flex-column (ver arriba), así que este bloque
+       puede crecer y centrar su contenido (ícono + mensaje + botón) tanto
+       vertical como horizontalmente dentro del espacio realmente disponible,
+       en vez de depender de padding fijo que en tablets dejaba el conjunto
+       descentrado y con espacios irregulares. */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 90px 24px;
     color: var(--text-secondary);
+}
+
+/* El atributo [hidden] tiene menor prioridad que las reglas de autor:
+   como .carrito-vacio ahora define display:flex explícitamente, hace
+   falta esta regla para que siga ocultándose correctamente cuando
+   CarritoPagina.js le pone el atributo "hidden". */
+.carrito-vacio[hidden] {
+    display: none;
 }
 
 .carrito-vacio-icono {

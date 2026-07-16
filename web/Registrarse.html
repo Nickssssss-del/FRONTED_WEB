@@ -101,7 +101,20 @@
                         <textarea rows="4" id="campo-comentario" class="input-form" placeholder="Déjanos un comentario"></textarea>
                     </div>
 
-                    <button type="submit" class="boton-enviar">Enviar</button>
+                    <!-- Términos y Condiciones (obligatorio) -->
+                    <div class="campo campo-terminos">
+                        <label class="etiqueta-terminos" for="campo-terminos">
+                            <input type="checkbox" id="campo-terminos" data-campo="terminos">
+                            <span>
+                                Acepto los <a href="#" id="link-terminos" class="enlace-legal">Términos y Condiciones</a>
+                                y autorizo el tratamiento de mis datos personales conforme a la
+                                <a href="#" id="link-privacidad" class="enlace-legal">Política de Privacidad</a>.
+                            </span>
+                        </label>
+                        <span id="error-terminos" class="mensaje-error" role="alert"></span>
+                    </div>
+
+                    <button type="submit" class="boton-enviar" disabled>Enviar</button>
 
                 </form>
 
@@ -164,6 +177,16 @@
         </div>
     </div>
 
+    <!-- MODAL: Términos y Condiciones / Política de Privacidad -->
+    <div id="modal-legal" class="modal-overlay">
+        <div class="modal-caja modal-legal-caja" role="dialog" aria-modal="true" aria-labelledby="modal-legal-titulo">
+            <button type="button" class="modal-cerrar-x" id="modal-legal-cerrar-x" aria-label="Cerrar">&times;</button>
+            <h3 id="modal-legal-titulo" class="modal-titulo"></h3>
+            <div class="modal-legal-cuerpo" id="modal-legal-cuerpo"></div>
+            <button type="button" class="modal-cerrar" id="modal-legal-cerrar">Cerrar</button>
+        </div>
+    </div>
+
     <!-- CONTENEDOR DE NOTIFICACIONES TOAST -->
     <div id="toast-contenedor" aria-live="polite"></div>
 
@@ -172,6 +195,7 @@
     <script src="js/HamburgerMenu.js"></script>
     <script src="js/Modal.js"></script>
     <script src="js/FormValidator.js"></script>
+    <script src="js/TerminosCondiciones.js"></script>
     <button id="theme-toggle" aria-label="Cambiar a modo oscuro"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
     <script src="theme-toggle.js"></script>
 </body>
