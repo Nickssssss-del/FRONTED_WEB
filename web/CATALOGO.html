@@ -11,6 +11,9 @@
     <link href="Style_Footer.css" rel="stylesheet" type="text/css"/>
     <link href="css/menu-responsive.css" rel="stylesheet" type="text/css"/>
         <link href="Style_Theme.css" rel="stylesheet" type="text/css"/>
+        <link href="css/toast.css" rel="stylesheet" type="text/css"/>
+        <link href="css/carrito.css" rel="stylesheet" type="text/css"/>
+        <link href="css/custom-select.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <header>
@@ -33,6 +36,10 @@
             <a href="Promociones.html">Promociones</a>
             <a href="Direccion.html">Ubicación</a>
             <a href="Registrarse.html">Registrarse</a>
+            <a href="carrito.html" class="nav-carrito" aria-label="Ver carrito de compras">
+                <span class="carrito-icono"><img src="Imagenes/icono-carrito.svg" alt="" class="nav-carrito-img" aria-hidden="true"></span>
+                <span class="carrito-contador" id="carrito-contador">0</span>
+            </a>
         </nav>
          <!-- Fondo oscuro que aparece al abrir el menú móvil -->
         <div id="nav-overlay" class="nav-overlay"></div>
@@ -49,7 +56,7 @@
 
             <!-- BUSCADOR -->
             <div class="buscador-box">
-                <span class="icono">🔍</span>
+                <span class="icono"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
                 <!--  Label accesible para el buscador -->
                 <label for="buscador" class="visually-hidden">Buscar productos</label>
                 <input type="text" id="buscador" placeholder="Buscar productos...">
@@ -59,7 +66,7 @@
             <div class="filtros-top">
                 <div class="grupo">
                     <label>Ordenar por:</label>
-                    <select id="ordenar">
+                    <select id="ordenar" data-cs-skin="pill">
                         <option value="nombre-asc">Nombre</option>
                         <option value="precio-asc">Precio</option>
                         <option value="fecha-desc">Recientes</option>
@@ -68,7 +75,7 @@
                 </div>
                 <div class="grupo">
                     <label>Estación:</label>
-                    <select id="estacion">
+                    <select id="estacion" data-cs-skin="pill">
                         <option value="all">Todos</option>
                         <option value="verano">Verano</option>
                         <option value="invierno">Invierno</option>
@@ -87,7 +94,7 @@
                 <button class="chip" data-cat="refrescante" aria-pressed="false">Bebidas sin gas</button>
                 <button class="chip" data-cat="postres" aria-pressed="false">Postres</button>
                 <button class="chip" data-cat="extras" aria-pressed="false">Extras</button>
-                <button class="chip" id="verFavoritos" aria-pressed="false">❤️ Ver favoritos</button>
+                <button class="chip" id="verFavoritos" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Ver favoritos</button>
             </div>
 
             <!--- Contenedor de productos --->
@@ -99,289 +106,394 @@
                    
                 <!-- ===== CLÁSICOS ===== -->
                 <div class="card" data-id="1" data-nombre="Café Espresso" data-categoria="clasicos" data-estacion="invierno" data-precio="10" data-fecha="2025-01-10" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Clasicos/pngtree-espresso-coffee-cutout-png-image_14908169.png" alt="Café Espresso" width="230" height="180" loading="lazy"/>
                     <h3>Café Espresso</h3>
                     <p class="text-card">Café puro e intenso, extraído al fondo.</p>
                     <p class="precio">S/ 10.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="2" data-nombre="Espresso Doble" data-categoria="clasicos" data-estacion="invierno" data-precio="14" data-fecha="2025-02-15" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Clasicos/pngtree-double-delight-cup-of-coffee-and-png-image_15316693.png" alt="Espresso Doble" width="230" height="180" loading="lazy"/>
                     <h3>Espresso Doble</h3>
                     <p class="text-card">El doble de energía y sabor para los amantes del café fuerte.</p>
                     <p class="precio">S/ 14.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="3" data-nombre="Americano" data-categoria="clasicos" data-estacion="invierno" data-precio="12" data-fecha="2025-03-01" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Clasicos/pngtree-americano-coffee-beans-transparent-white-background-png-image_9097377.png" alt="Americano" width="230" height="180" loading="lazy"/>
                     <h3>Americano</h3>
                     <p class="text-card">Espresso suavizado con agua caliente, ligero pero lleno de carácter.</p>
                     <p class="precio">S/ 12.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="4" data-nombre="Café Pasado" data-categoria="clasicos" data-estacion="invierno" data-precio="11" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Clasicos/cafepasado.png" alt="Café Pasado" width="230" height="180" loading="lazy"/>
                     <h3>Café Pasado</h3>
                     <p class="text-card">Preparación tradicional, equilibrado y aromático.</p>
                     <p class="precio">S/ 11.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="5" data-nombre="Cappuccino" data-categoria="clasicos" data-estacion="invierno" data-precio="13" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Clasicos/pngtree-delicious-cappuccino-coffee-cup-png-image_14663060.png" alt="Cappuccino" width="230" height="180" loading="lazy"/>
                     <h3>Cappuccino</h3>
                     <p class="text-card">Perfecta armonía entre espresso, leche vaporizada y espuma cremosa.</p>
                     <p class="precio">S/ 13.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="6" data-nombre="Latte" data-categoria="clasicos" data-estacion="invierno" data-precio="14" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Clasicos/latte22.png" alt="Latte" width="230" height="180" loading="lazy"/>
                     <h3>Latte</h3>
                     <p class="text-card">Suave, cremoso y reconfortante, ideal para cualquier momento.</p>
                     <p class="precio">S/ 14.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="7" data-nombre="Flat White" data-categoria="clasicos" data-estacion="invierno" data-precio="16" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Clasicos/pngtree-cup-of-hot-flat-white-coffee-on-transparent-background-png-image_14802534.png" alt="Flat White" width="230" height="180" loading="lazy"/>
                     <h3>Flat White</h3>
                     <p class="text-card">Café intenso con leche texturizada, más fuerte que un latte.</p>
                     <p class="precio">S/ 16.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <!-- ===== FRÍO ===== -->
                 <div class="card" data-id="8" data-nombre="Iced Latte" data-categoria="frio" data-estacion="verano" data-precio="14" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Especiales/pngtree-iced-coffee-latte-in-a-plastic-cup-png-image_16393391.png" alt="Iced Latte" width="230" height="180" loading="lazy"/>
                     <h3>Iced Latte</h3>
                     <p class="text-card">Refrescante mezcla de café con leche fría y hielo.</p>
                     <p class="precio">S/ 14.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="9" data-nombre="Cold Brew" data-categoria="frio" data-estacion="verano" data-precio="15" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Especiales/pngtree-cold-brewed-iced-latte-coffee-png-image_15470494.png" alt="Cold Brew" width="230" height="180" loading="lazy"/>
                     <h3>Cold Brew</h3>
                     <p class="text-card">Café infusionado en frío por horas, suave y menos ácido.</p>
                     <p class="precio">S/ 15.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="10" data-nombre="Frappé de Café" data-categoria="frio" data-estacion="verano" data-precio="16" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Especiales/frappecafe.png" alt="Frappé de Café" width="230" height="180" loading="lazy"/>
                     <h3>Frappé de Café</h3>
                     <p class="text-card">Café licuado con hielo, cremoso y refrescante.</p>
                     <p class="precio">S/ 16.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="11" data-nombre="Mocca Frappé" data-categoria="frio" data-estacion="verano" data-precio="15" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Especiales/pngtree-mocha-coffee-frappe-in-glass-png-image_13321780.png" alt="Mocca Frappé" width="230" height="180" loading="lazy"/>
                     <h3>Mocca Frappé</h3>
                     <p class="text-card">Café + chocolate + crema batida, una combinación irresistible.</p>
                     <p class="precio">S/ 15.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="12" data-nombre="Affogato" data-categoria="frio" data-estacion="verano" data-precio="14" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Especiales/pngtree-watercolor-affogato-coffee-png-image_13005835.png" alt="Affogato" width="230" height="180" loading="lazy"/>
                     <h3>Affogato</h3>
                     <p class="text-card">Helado de vainilla bañado con espresso caliente.</p>
                     <p class="precio">S/ 14.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <!-- ===== ESPECIALES ===== -->
                 <div class="card" data-id="13" data-nombre="Chocolate Caliente Artesanal" data-categoria="especiales" data-estacion="invierno" data-precio="12" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Especiales/chocCaliente.png" alt="Chocolate Caliente Artesanal" width="230" height="180" loading="lazy"/>
                     <h3>Chocolate Caliente Artesanal</h3>
                     <p class="text-card">Chocolate derretido con leche cremosa y toque casero.</p>
                     <p class="precio">S/ 12.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="14" data-nombre="Mocaccino" data-categoria="especiales" data-estacion="invierno" data-precio="13" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Calientes/mocachino.png" alt="Mocaccino" width="230" height="180" loading="lazy"/>
                     <h3>Mocaccino</h3>
                     <p class="text-card">Café con chocolate y espuma de leche, dulce y envolvente.</p>
                     <p class="precio">S/ 13.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="15" data-nombre="Chai Latte" data-categoria="especiales" data-estacion="invierno" data-precio="15" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Especiales/chailattee.png" alt="Chai Latte" width="230" height="180" loading="lazy"/>
                     <h3>Chai Latte</h3>
                     <p class="text-card">Infusión especiada con leche caliente, exótica y reconfortante.</p>
                     <p class="precio">S/ 15.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="16" data-nombre="Matcha Latte" data-categoria="especiales" data-estacion="verano" data-precio="17" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Calientes/pngtree-matcha-latte-a-tall-glass-of-iced-green-tea-with-cream-png-image_15443763.png" alt="Matcha Latte" width="230" height="180" loading="lazy"/>
                     <h3>Matcha Latte</h3>
                     <p class="text-card">Té verde japonés con leche, suave y lleno de energía natural.</p>
                     <p class="precio">S/ 17.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <!-- ===== INFUSIONES ===== -->
                 <div class="card" data-id="17" data-nombre="Té Clásico" data-categoria="infusiones" data-estacion="all" data-precio="8" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Infusiones/pngtree-hot-cup-of-black-tea-in-a-classic-white-teacup-png-image_20336625.png" alt="Té Clásico" width="230" height="180" loading="lazy"/>
                     <h3>Té Clásico</h3>
                     <p class="text-card">Manzanilla, anís o menta. Ligero, natural y relajante.</p>
                     <p class="precio">S/ 8.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="18" data-nombre="Té Premium" data-categoria="infusiones" data-estacion="all" data-precio="10" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Infusiones/pngtree-cup-of-green-tea-with-leaves-on-transparent-background-png-image_20059703.png" alt="Té Premium" width="230" height="180" loading="lazy"/>
                     <h3>Té Premium</h3>
                     <p class="text-card">Verde, negro o frutos rojos. Sabores intensos.</p>
                     <p class="precio">S/ 10.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="19" data-nombre="Infusión Frutal" data-categoria="infusiones" data-estacion="all" data-precio="12" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Infusiones/pngtree-fruit-infused-water-in-a-mason-jar-png-image_13125695.png" alt="Infusión Frutal" width="230" height="180" loading="lazy"/>
                     <h3>Infusión Frutal</h3>
                     <p class="text-card">Mezcla de frutas naturales con aroma delicado.</p>
                     <p class="precio">S/ 12.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <!-- ===== BEBIDAS SIN GAS ===== -->
                 <div class="card" data-id="20" data-nombre="Limonada Clásica" data-categoria="refrescante" data-estacion="all" data-precio="10" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Bebidas refrescantes/pngtree-cold-lemonade-with-mint-and-lemon-drink-png-image_12239904.png" alt="Limonada Clásica" width="230" height="180" loading="lazy"/>
                     <h3>Limonada Clásica</h3>
                     <p class="text-card">Refrescante, natural y equilibrada.</p>
                     <p class="precio">S/ 10.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="21" data-nombre="Limonada Frozen" data-categoria="refrescante" data-estacion="verano" data-precio="13" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Bebidas refrescantes/limonada.png" alt="Limonada Frozen" width="230" height="180" loading="lazy"/>
                     <h3>Limonada Frozen</h3>
                     <p class="text-card">Granizada y perfecta para días calurosos.</p>
                     <p class="precio">S/ 13.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="22" data-nombre="Limonada de Hierbabuena" data-categoria="refrescante" data-estacion="all" data-precio="14" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Bebidas refrescantes/hierbabuena.png" alt="Limonada de Hierbabuena" width="230" height="180" loading="lazy"/>
                     <h3>Limonada de Hierbabuena</h3>
                     <p class="text-card">Frescura con un toque herbal.</p>
                     <p class="precio">S/ 14.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="23" data-nombre="Maracuyá Refrescante" data-categoria="refrescante" data-estacion="all" data-precio="15" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Bebidas refrescantes/pngtree-passion-fruit-mojito-tropical-cocktail-png-image_11671596.png" alt="Maracuyá Refrescante" width="230" height="180" loading="lazy"/>
                     <h3>Maracuyá Refrescante</h3>
                     <p class="text-card">Ácida, tropical y revitalizante.</p>
                     <p class="precio">S/ 15.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="24" data-nombre="Jugo Natural" data-categoria="refrescante" data-estacion="all" data-precio="10" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Bebidas refrescantes/jugos.png" alt="Jugo Natural" width="230" height="180" loading="lazy"/>
                     <h3>Jugo Natural</h3>
                     <p class="text-card">Fresa, papaya, piña o naranja. 100% fruta natural.</p>
                     <p class="precio">S/ 10.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="25" data-nombre="Smoothies" data-categoria="refrescante" data-estacion="all" data-precio="14" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Bebidas refrescantes/pngtree-smoothies-ready-fruits-png-image_20328080.png" alt="Smoothies" width="230" height="180" loading="lazy"/>
                     <h3>Smoothies</h3>
                     <p class="text-card">Frutos rojos, mango o tropical. Espesos y nutritivos.</p>
                     <p class="precio">S/ 14.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <!-- ===== POSTRES ===== -->
                 <div class="card" data-id="26" data-nombre="Torta de Chocolate" data-categoria="postres" data-estacion="all" data-precio="13" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Postres/pngtree-gooey-bliss-a-tempting-chocolate-cake-slice-png-image_10398634.png" alt="Torta de Chocolate" width="230" height="180" loading="lazy"/>
                     <h3>Torta de Chocolate</h3>
                     <p class="text-card">Húmeda, intensa y cubierta con fudge.</p>
                     <p class="precio">S/ 13.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="27" data-nombre="Cheesecake de Fresa" data-categoria="postres" data-estacion="all" data-precio="14" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Postres/pngtree-slice-of-strawberry-cheesecake-topped-with-fresh-berries-png-image_18847834.png" alt="Cheesecake de Fresa" width="230" height="180" loading="lazy"/>
                     <h3>Cheesecake de Fresa</h3>
                     <p class="text-card">Suave y cremoso con topping frutal.</p>
                     <p class="precio">S/ 14.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="28" data-nombre="Pie de Limón" data-categoria="postres" data-estacion="all" data-precio="13" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Postres/pngtree-sweet-lemon-pie-png-image_14541909.png" alt="Pie de Limón" width="230" height="180" loading="lazy"/>
                     <h3>Pie de Limón</h3>
                     <p class="text-card">Ácido y dulce en equilibrio perfecto.</p>
                     <p class="precio">S/ 13.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="29" data-nombre="Brownie con Helado" data-categoria="postres" data-estacion="all" data-precio="15" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Postres/pngtree-chocolate-brownie-with-vanilla-ice-cream-png-image_19965918.png" alt="Brownie con Helado" width="230" height="180" loading="lazy"/>
                     <h3>Brownie con Helado</h3>
                     <p class="text-card">Caliente por dentro, acompañado con helado.</p>
                     <p class="precio">S/ 15.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="30" data-nombre="Tiramisú" data-categoria="postres" data-estacion="all" data-precio="15" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Postres/pngtree-tiramisu-cake-png-image_16978655.png" alt="Tiramisú" width="230" height="180" loading="lazy"/>
                     <h3>Tiramisú</h3>
                     <p class="text-card">Postre italiano con café, cacao y crema suave.</p>
                     <p class="precio">S/ 15.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="31" data-nombre="Croissant" data-categoria="postres" data-estacion="all" data-precio="9" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Postres/pngtree-croissant-cutout-png-file-png-image_13019052.png" alt="Croissant" width="230" height="180" loading="lazy"/>
                     <h3>Croissant</h3>
                     <p class="text-card">Crujiente por fuera, suave por dentro.</p>
                     <p class="precio">S/ 9.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="32" data-nombre="Galletas Artesanales" data-categoria="postres" data-estacion="all" data-precio="7" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Postres/pngtree-deliciously-homemade-chocolate-chip-cookies-with-a-perfect-crunch-png-image_13215405.png" alt="Galletas Artesanales" width="230" height="180" loading="lazy"/>
                     <h3>Galletas Artesanales</h3>
                     <p class="text-card">Hechas en casa, ideales para acompañar tu café.</p>
                     <p class="precio">S/ 7.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <!-- ===== EXTRAS ===== -->
                 <div class="card" data-id="33" data-nombre="Helado" data-categoria="extras" data-estacion="all" data-precio="6" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Extras/pngtree-ice-cream-png-image_13519901.png" alt="Helado" width="230" height="180" loading="lazy"/>
                     <h3>Helado</h3>
                     <p class="text-card">Cremoso y disponible en varios sabores.</p>
                     <p class="precio">S/ 6.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="34" data-nombre="Shot extra de café" data-categoria="extras" data-estacion="all" data-precio="6" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Extras/espressocafee.png" alt="Shot extra de café" width="230" height="180" loading="lazy"/>
                     <h3>Shot extra de café</h3>
                     <p class="text-card">Un shot adicional para intensificar tu bebida.</p>
                     <p class="precio">S/ 6.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
                 <div class="card" data-id="35" data-nombre="Leche vegetal" data-categoria="extras" data-estacion="all" data-precio="6" data-fecha="2025-02-20" role="button" tabindex="0">
-                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos">♡</button>
+                    <button class="fav-btn" type="button" aria-pressed="false" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
                     <img src="Extras/leche.png" alt="Leche vegetal" width="230" height="180" loading="lazy"/>
                     <h3>Leche vegetal</h3>
                     <p class="text-card">Avena, almendra o soja. Ideal para dietas plant-based.</p>
                     <p class="precio">S/ 6.00</p>
+                    <div class="card-acciones">
+                        <button class="btn-agregar-carrito" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Agregar al carrito</button>
+                    </div>
                 </div>
 
             </div>
@@ -438,9 +550,12 @@
     </div>
 </footer>
     <!--  Script  -->
+    <script src="js/Toast.js"></script>
+    <script src="js/Carrito.js"></script>
     <script src="Scrip_catalogo.js"></script>
     <script src="js/HamburgerMenu.js"></script>
-    <button id="theme-toggle" aria-label="Cambiar a modo oscuro">🌙</button>
+    <script src="js/CustomSelect.js"></script>
+    <button id="theme-toggle" aria-label="Cambiar a modo oscuro"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
     <script src="theme-toggle.js"></script>
     <script src="intro.js"></script>
 </body>

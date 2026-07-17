@@ -53,11 +53,22 @@ body {
     background-color: var(--bg-surface);    /* Fondo del cuadro */
     padding: 40px;    /* Espaciado interno */
     border-radius: 20px;    /* Bordes redondeados */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);    /* Sombra suave */
+    border: 1px solid var(--border-color);    /* Define el borde de la tarjeta sobre el fondo */
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.12),
+        0 2px 10px rgba(0, 0, 0, 0.05);    /* Sombra suave en dos capas: una cercana y otra difusa, para más profundidad */
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
     display: flex;    /* Divide imagen y formulario */
     justify-content: space-between;    /* Espacio entre ambos lados */
     align-items: center;    /* Centra verticalmente */
     gap: 40px;    /* Espacio entre columnas */
+}
+
+.cuadro-registro:hover {
+    box-shadow:
+        0 16px 40px rgba(0, 0, 0, 0.16),
+        0 4px 14px rgba(0, 0, 0, 0.07);
+    transform: translateY(-3px);
 }
 /* FRANJA SUPERIOR DECORATIVA - degradado con toda la paleta */
 .cuadro-registro::before {
@@ -159,7 +170,7 @@ body {
 }
 /* BADGE - etiqueta decorativa arriba del título */
 .contenido-formulario::before {
-    content: "☕ Únete al club Bruma";
+    content: "Únete al club Bruma";
     display: inline-block;
     font-size: 0.72rem;
     font-weight: bold;
@@ -266,8 +277,10 @@ body {
     /* Color de texto legible */
 
     box-shadow:
-        0px 2px 2px rgba(0, 0, 0, 0.1);
-    /* Sombra */
+        0px 2px 2px rgba(0, 0, 0, 0.1),
+        inset 0 1px 3px rgba(0, 0, 0, 0.04);
+    /* Sombra exterior sutil + una leve sombra interior para dar sensación
+       de profundidad "hundida", coherente con el resto de la tarjeta */
 
     transition:
 
@@ -284,22 +297,6 @@ body {
     /* Elimina borde azul */
 }
 
-/* FOCUS */
-.input-form:focus {
-
-    border-color: var(--bg-header);
-    /* Color del borde */
-
-    transform: scale(1.02);
-    /* Agranda ligeramente */
-}
-
-/* PLACEHOLDER */
-.input-form::placeholder {
-
-    font-size: 0.9rem;
-    /* Tamaño del texto interno */
-}
 /* FOCUS */
 .input-form:focus {
 

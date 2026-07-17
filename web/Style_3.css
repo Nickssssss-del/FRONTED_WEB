@@ -2,7 +2,7 @@
 body {
     font-family: 'Poppins', sans-serif; /* Fuente principal */
     margin: 0; /* Elimina márgenes externos */
-    padding: 0; /* Elim  color: var(--text-primary); /* Color principal del texto */
+    padding: 0;
     color: var(--text-primary); /* Color principal del texto */
     background-color: var(--bg-page); 
     height:100%; /* Altura completa */
@@ -37,7 +37,7 @@ body {
 
 /* Contenedor del texto dentro del banner */
 .banner-text {
-     color: var(--text-on-dark); /* Color del texto */
+    color: var(--text-on-dark); /* Color del texto */
     padding: 20px; /* Espaciado interno */
 }
 
@@ -56,7 +56,7 @@ body {
     font-weight: 300; /* Grosor ligero */
     letter-spacing: 0.1em; /* Separación de letras */
     margin-top: 10px; /* Espacio arriba */
-    color: var(--tan); /* Color verde claro */
+    color: var(--tan); /* Color acento cálido */
 }
 
 /* MAIN */
@@ -85,6 +85,24 @@ body {
     margin-bottom: 10px;
 }
 
+/* Línea decorativa debajo del título. Esta clase se usa en el HTML pero
+   antes no tenía ninguna regla en las hojas que carga Promociones.html
+   (solo existía en Style_6.css, la hoja de CATALOGO.html): sin estilo, el
+   <div> vacío ocupaba todo el ancho del contenedor sin ningún límite de
+   tamaño, en vez del pequeño acento centrado que sí se ve en la Carta. */
+.divider-deco {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--tan), transparent);
+    margin: 0.5rem auto 0.9rem;
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.2s ease;
+    opacity: 1;
+}
+
+.divider-deco:hover {
+    width: 160px;
+}
+
 /* Título principal */
 .Promociones_titulo h1 {
     font-family: 'Playfair Display', Georgia, serif;
@@ -101,7 +119,7 @@ body {
 /* Texto en cursiva dentro del título */
 .Promociones_titulo h1 em {
     font-style: italic;
-color: #B8C9CF;
+    color: var(--tan);
 }
 
 /* Texto descriptivo debajo del título */
@@ -134,11 +152,11 @@ color: #B8C9CF;
     border-radius: 16px; /* Bordes redondeados */
     overflow: hidden; /* Oculta contenido sobrante */
 
-    background: white;
-    border: 1px solid rgba(229,215,204,0.5);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
 
     /* Sombra */
-    box-shadow: 0 4px 24px rgba(38,56,46,0.10);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
 
     /* Animaciones suaves */
     transition: transform 0.3s, box-shadow 0.3s;
@@ -149,7 +167,7 @@ color: #B8C9CF;
 /* Efecto hover de la tarjeta */
 .promo-card:hover {
     transform: translateY(-7px); /* Sube ligeramente */
-    box-shadow: 0 12px 36px rgba(38,56,46,0.18);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.28);
 }
 
 /* IMAGEN */
@@ -178,7 +196,7 @@ color: #B8C9CF;
     object-position: center bottom;
 
     /* Sombra de la imagen */
-    filter: drop-shadow(0 6px 14px rgba(38,56,46,0.15));
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.22));
 
     transition: transform 0.45s, filter 0.45s;
 }
@@ -186,41 +204,38 @@ color: #B8C9CF;
 /* Efecto hover en imagen */
 .promo-card:hover .promo-img-wrap img {
     transform: scale(1.08) translateY(-4px);
-    filter: drop-shadow(0 12px 20px rgba(38,56,46,0.22));
+    filter: drop-shadow(0 12px 20px rgba(0,0,0,0.35));
 }
 
 /* TABLA */
 
-/* Estilo general de la tabla */
-table {
-    width: 100%;
-    border-collapse: collapse; /* Une bordes */
-    background: white;
-    flex: 1;
-}
-
-/* Tabla dentro de la tarjeta */
+/* Estilo general de la tabla en tarjetas de promo */
 .promo-card table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+    flex: 1;
     box-shadow: none;
     border-radius: 0;
     border: none;
 }
 
-/* Celdas y encabezados */
-td, th {
+/* Celdas y encabezados en tarjetas */
+.promo-card td,
+.promo-card th {
     padding: 0;
     text-align: center;
     border-bottom: none;
 }
 
 /* Encabezado de la tabla */
-thead {
-    background: linear-gradient(135deg, #26382E, #334d42);
-    color: #F5F1E9;
+.promo-card thead {
+    background: var(--bg-header);
+    color: var(--text-on-dark);
 }
 
 /* Texto del encabezado */
-thead th {
+.promo-card thead th {
     padding: 22px 18px 18px;
 
     font-family: 'Playfair Display', Georgia, serif;
@@ -234,53 +249,43 @@ thead th {
 }
 
 /* Primera fila del cuerpo */
-tbody tr:first-child td {
+.promo-card tbody tr:first-child td {
     padding: 16px 18px 4px;
 
     font-size: 0.65rem;
-
-    font-weight: 500;
-
+    font-weight: 600;
     letter-spacing: 0.2em;
-
     text-transform: uppercase;
 
-    color: #A86D49;
-
-    border-bottom: 1px solid #E5D7CC;
+    color: var(--tan);
+    border-bottom: 1px solid var(--border-color);
 }
 
 /* Última fila del cuerpo */
-tbody tr:last-child td {
+.promo-card tbody tr:last-child td {
     padding: 8px 18px 18px;
-
     font-size: 0.95rem;
-
-    color: #26382E;
+    color: var(--text-primary);
 }
 
 /* Hover en filas */
-tbody tr:hover td {
-    background: #F5F1E9;
+.promo-card tbody tr:hover td {
+    background: var(--bg-page);
 }
 
 /* Pie de tabla */
-tfoot {
-    background: linear-gradient(to bottom, #E5D7CC, #ede0d3);
+.promo-card tfoot {
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-color);
 }
 
 /* Texto del pie */
-tfoot td {
+.promo-card tfoot td {
     padding: 12px 18px;
-
     font-size: 0.8rem;
-
     font-weight: 300;
-
     font-style: italic;
-
-    color: #667E6B;
-
+    color: var(--text-secondary);
     line-height: 1.5;
 }
 
@@ -288,14 +293,10 @@ tfoot td {
 
 /* Animación de aparición */
 @keyframes fadeUp {
-
-    /* Estado inicial */
     from {
         opacity: 0;
         transform: translateY(22px);
     }
-
-    /* Estado final */
     to {
         opacity: 1;
         transform: translateY(0);
@@ -384,6 +385,33 @@ tfoot td {
     .banner-text p {
         font-size: 0.95rem;
     }
+
+    /* Filtros: se apilan en una sola columna y el separador
+       vertical (pensado para una fila) deja de mostrarse */
+    .controles-selects {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .ctrl-grupo {
+        width: 100%;
+        align-items: center;
+    }
+
+    .ctrl-grupo select:not(.custom-select__native),
+    .ctrl-grupo .custom-select {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .ctrl-sep {
+        display: none;
+    }
+
+    .controles-btns {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 /* CONTROLES JS */
@@ -402,7 +430,7 @@ tfoot td {
     font-weight: 400;
     letter-spacing: 0.35em;
     text-transform: uppercase;
-    color: #A86D49;
+    color: var(--tan);
     margin-bottom: 20px;
 }
 
@@ -429,18 +457,18 @@ tfoot td {
     font-weight: 500;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #667E6B;
+    color: var(--text-secondary);
 }
 
-.ctrl-grupo select {
+.ctrl-grupo select:not(.custom-select__native) {
     font-family: 'Poppins', sans-serif;
     font-size: 0.88rem;
     font-weight: 300;
     padding: 9px 36px 9px 14px;
     border: none;
-    border-bottom: 1.5px solid #C8B49E;
+    border-bottom: 1.5px solid var(--border-color);
     background: transparent;
-    color: #26382E;
+    color: var(--text-primary);
     cursor: pointer;
     outline: none;
     appearance: none;
@@ -452,13 +480,13 @@ tfoot td {
     transition: border-color 0.2s;
 }
 
-.ctrl-grupo select:focus { border-bottom-color: #26382E; }
+.ctrl-grupo select:focus { border-bottom-color: var(--text-primary); }
 
 /* Separador vertical entre selects */
 .ctrl-sep {
     width: 1px;
     height: 36px;
-    background: #E5D7CC;
+    background: var(--border-color);
     align-self: flex-end;
     margin-bottom: 2px;
 }
@@ -467,7 +495,7 @@ tfoot td {
 .controles-linea {
     width: 48px;
     height: 1px;
-    background: #E5D7CC;
+    background: var(--border-color);
     margin: 18px auto;
 }
 
@@ -489,7 +517,7 @@ tfoot td {
     padding: 0;
     border: none;
     background: transparent;
-    color: #667E6B;
+    color: var(--text-secondary);
     cursor: pointer;
     position: relative;
     transition: color 0.2s;
@@ -502,16 +530,16 @@ tfoot td {
     left: 0;
     width: 0;
     height: 1px;
-    background: #A86D49;
+    background: var(--tan);
     transition: width 0.3s;
 }
 
-.btn-js:hover { color: #A86D49; }
+.btn-js:hover { color: var(--tan); }
 .btn-js:hover::after { width: 100%; }
 
 /* Separador entre botones */
 .btn-sep {
-    color: #C8B49E;
+    color: var(--border-color);
     font-size: 0.75rem;
     align-self: center;
     user-select: none;
@@ -528,7 +556,6 @@ tfoot td {
     overflow: hidden;
 }
 
-/* SELECTOR DE FESTIVIDADES - ESTILOS PARA CLIENTE */
 /* VARIABLES CSS PARA FESTIVIDADES */
 :root {
     --loyalty-primary: #A86D49;
@@ -565,7 +592,7 @@ body.tema-diciembre {
 
 /* SELECTOR DE FESTIVIDAD */
 .festividad-selector {
-    background: white;
+    background: var(--bg-surface);
     border-radius: 12px;
     padding: 25px;
     margin: 35px auto;
@@ -595,20 +622,20 @@ body.tema-diciembre {
 .form-group label {
     font-size: 0.85rem;
     font-weight: 500;
-    color: #667E6B;
+    color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.08em;
 }
 
-.form-group select {
+.form-group select:not(.custom-select__native) {
     font-family: 'Poppins', sans-serif;
     padding: 10px 14px;
-    border: 2px solid var(--loyalty-border);
+    border: 2px solid var(--border-color);
     border-radius: 6px;
     font-size: 0.95rem;
     transition: border-color 0.3s, box-shadow 0.3s;
-    background: white;
-    color: var(--loyalty-text);
+    background: var(--bg-surface);
+    color: var(--text-primary);
     cursor: pointer;
     min-width: 280px;
 }
@@ -616,7 +643,21 @@ body.tema-diciembre {
 .form-group select:focus {
     outline: none;
     border-color: var(--loyalty-primary);
-    box-shadow: 0 0 0 3px rgba(168, 109, 73, 0.1);
+    box-shadow: 0 0 0 3px rgba(168, 109, 73, 0.12);
+}
+
+/* Icono de ubicacion en banner de Direccion */
+.banner-icono-ubicacion {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    margin-right: 4px;
+    filter: brightness(0) invert(1);
+}
+
+.icono-columna-ubicacion {
+    width: 36px;
+    height: 36px;
 }
 
 /* RESPONSIVE FESTIVIDAD */
@@ -626,7 +667,7 @@ body.tema-diciembre {
         margin: 25px auto;
     }
 
-    .form-group select {
+    .form-group select:not(.custom-select__native) {
         width: 100%;
         min-width: auto;
     }

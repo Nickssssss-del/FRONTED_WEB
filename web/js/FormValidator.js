@@ -39,7 +39,7 @@ class FormValidator {
             telefono: (valor) => {
                 if (!valor.trim()) return "Ingresa tu número de teléfono.";
                 const soloDigitos = valor.replace(/\D/g, "");
-                if (soloDigitos.length < 9) return "El teléfono debe tener al menos 9 dígitos.";
+                if (soloDigitos.length !== 9) return "El teléfono debe tener exactamente 9 dígitos.";
                 return null;
             },
             fecha: (valor) => {
@@ -81,6 +81,24 @@ class FormValidator {
 
         // Validación completa al enviar
         this.formulario.addEventListener("submit", (evento) => this.manejarEnvio(evento));
+
+        /* BUG CORREGIDO: el campo de teléfono no limitaba la cantidad de
+           dígitos que se podían escribir (se podía pegar o teclear un
+           número de cualquier longitud). Ahora, igual que en el formulario
+           de compra del carrito, solo admite dígitos y como máximo 9. */
+        const inputTelefono = this.campos.telefono;
+        if (inputTelefono) {
+            inputTelefono.addEventListener("input", () => {
+                const soloDigitos = inputTelefono.value.replace(/\D/g, "").slice(0, 9);
+                if (inputTelefono.value !== soloDigitos) inputTelefono.value = soloDigitos;
+            });
+            inputTelefono.addEventListener("keydown", (evento) => {
+                const permitidas = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Tab", "Home", "End"];
+                if (!/^\d$/.test(evento.key) && !permitidas.includes(evento.key) && !evento.ctrlKey && !evento.metaKey) {
+                    evento.preventDefault();
+                }
+            });
+        }
     }
 
     /* Valida un campo individual y actualiza su UI (borde + mensaje) */

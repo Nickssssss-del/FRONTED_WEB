@@ -1,0 +1,246 @@
+/* =============================================================
+   CUSTOM SELECT — dropdown propio, coherente con el tema
+   claro/oscuro del sitio (usa las variables de Style_Theme.css).
+   Sustituye la lista desplegable nativa del navegador, que no
+   puede tematizarse de forma consistente entre navegadores.
+   ============================================================= */
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+}
+
+/* El <select> real queda oculto visualmente pero sigue en el DOM
+   (values, eventos "change", validación de formularios, etc. siguen
+   funcionando exactamente igual que antes). */
+.custom-select__native {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.custom-select__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-primary);
+    background: var(--bg-page);
+    border: 1.5px solid var(--border-color);
+}
+
+.custom-select__trigger:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.custom-select__valor {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.custom-select__flecha {
+    flex-shrink: 0;
+    width: 9px;
+    height: 9px;
+    border-right: 1.8px solid currentColor;
+    border-bottom: 1.8px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    opacity: 0.65;
+    transition: transform 0.2s ease;
+}
+
+.custom-select--abierto .custom-select__flecha {
+    transform: rotate(225deg) translateY(-1px);
+}
+
+/* --- Panel desplegable --- */
+.custom-select__panel {
+    position: absolute;
+    z-index: 60;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 100%;
+    max-height: 260px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-color);
+    border-radius: 14px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28), 0 2px 8px rgba(0, 0, 0, 0.14);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px) scale(0.98);
+    transform-origin: top center;
+    transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
+}
+
+.custom-select--abierto .custom-select__panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.custom-select__opcion {
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.custom-select__opcion--activa {
+    background: var(--bg-page);
+}
+
+.custom-select__opcion--seleccionada {
+    background: var(--burnt-orange);
+    color: var(--text-on-dark);
+    font-weight: 600;
+}
+
+.custom-select__opcion--activa.custom-select__opcion--seleccionada {
+    background: var(--burnt-orange-hover);
+}
+
+.custom-select__opcion[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Barra de scroll discreta, coherente con el tema */
+.custom-select__panel::-webkit-scrollbar { width: 8px; }
+.custom-select__panel::-webkit-scrollbar-track { background: transparent; }
+.custom-select__panel::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 8px;
+}
+
+/* --- Foco visible (accesibilidad) --- */
+.custom-select__trigger:focus-visible {
+    outline: 2px solid var(--tan);
+    outline-offset: 2px;
+}
+
+/* --- Estado de error (usado en el checkout del carrito) --- */
+.custom-select--error .custom-select__trigger {
+    border-color: #C0392B;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.10);
+}
+
+.custom-select--disabled .custom-select__trigger {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* =============================================================
+   SKIN: "pill" — filtros de la Carta (CATALOGO.html)
+   Reproduce el select redondeado tipo píldora original.
+   ============================================================= */
+.custom-select--pill .custom-select__trigger {
+    padding: 7px 14px 7px 16px;
+    border-radius: 30px;
+    font-size: 0.86rem;
+    min-width: 150px;
+    transition: border-color 0.2s;
+}
+
+.custom-select--pill .custom-select__flecha {
+    color: #b09080;
+}
+
+.custom-select--pill.custom-select--abierto .custom-select__trigger,
+.custom-select--pill .custom-select__trigger:focus-visible {
+    border-color: var(--tan);
+}
+
+/* =============================================================
+   SKIN: "underline" — filtros de Promociones.html
+   Reproduce el estilo minimalista con línea inferior.
+   ============================================================= */
+.custom-select--underline {
+    min-width: 170px;
+}
+
+.custom-select--underline .custom-select__trigger {
+    padding: 9px 4px 9px 2px;
+    border: none;
+    border-bottom: 1.5px solid var(--border-color);
+    border-radius: 0;
+    background: transparent;
+    font-size: 0.88rem;
+    font-weight: 300;
+}
+
+.custom-select--underline .custom-select__flecha {
+    color: #A86D49;
+}
+
+.custom-select--underline.custom-select--abierto .custom-select__trigger,
+.custom-select--underline .custom-select__trigger:focus-visible {
+    border-bottom-color: var(--text-primary);
+    outline: none;
+}
+
+.custom-select--underline .custom-select__panel {
+    left: -2px;
+}
+
+/* =============================================================
+   SKIN: "boxed" — campo "Método de pago" en el checkout (carrito.html)
+   Reproduce el input de formulario con borde y fondo.
+   ============================================================= */
+.custom-select--boxed {
+    display: block;
+    width: 100%;
+}
+
+.custom-select--boxed .custom-select__trigger {
+    padding: 11px 13px;
+    border-radius: 10px;
+    background: var(--bg-surface);
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.custom-select--boxed .custom-select__trigger--placeholder {
+    color: var(--text-secondary);
+}
+
+.custom-select--boxed.custom-select--abierto .custom-select__trigger,
+.custom-select--boxed .custom-select__trigger:focus-visible {
+    border-color: var(--burnt-orange);
+    background: var(--bg-page);
+    box-shadow: 0 0 0 3px rgba(84, 71, 54, 0.13);
+    outline: none;
+}
+
+.custom-select--boxed .custom-select__panel {
+    width: 100%;
+}
+
+/* --- Responsive: los paneles no deben desbordar en pantallas pequeñas --- */
+@media (max-width: 480px) {
+    .custom-select__panel {
+        max-height: 220px;
+    }
+}

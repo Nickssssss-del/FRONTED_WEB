@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <title>Bruma Café - Registro</title>
@@ -14,8 +14,8 @@
     <link href="css/modal.css" rel="stylesheet" type="text/css"/>
     <link href="css/formulario-validacion.css" rel="stylesheet" type="text/css"/>
     <link href="Style_Theme.css" rel="stylesheet" type="text/css"/>
-     <link href="css/toast.css" rel="stylesheet" type="text/css"/>
-
+    <link href="css/toast.css" rel="stylesheet" type="text/css"/>
+    <link href="css/carrito.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -25,7 +25,7 @@
         <div class="logo-area">
             <img src="Imagenes/LOGO1.png" alt="Logo" class="logo"/>
         </div>
-         <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menu de navegacion" aria-expanded="false" aria-controls="menu-principal">
+        <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menu de navegacion" aria-expanded="false" aria-controls="menu-principal">
             <span class="nav-toggle__barra"></span>
             <span class="nav-toggle__barra"></span>
             <span class="nav-toggle__barra"></span>
@@ -39,6 +39,10 @@
             <a href="Promociones.html">Promociones</a>
             <a href="Direccion.html">Ubicación</a>
             <a href="Registrarse.html">Registrarse</a>
+            <a href="carrito.html" class="nav-carrito" aria-label="Ver carrito de compras">
+                <span class="carrito-icono"><img src="Imagenes/icono-carrito.svg" alt="" class="nav-carrito-img" aria-hidden="true"></span>
+                <span class="carrito-contador" id="carrito-contador">0</span>
+            </a>
         </nav>
         <div id="nav-overlay" class="nav-overlay"></div>
     </header>
@@ -82,7 +86,7 @@
 
                     <div class="campo">
                         <label class="etiqueta" for="campo-telefono">Teléfono:</label>
-                        <input type="tel" id="campo-telefono" data-campo="telefono" class="input-form" placeholder="Ingresa tu número de teléfono" aria-describedby="error-telefono">
+                        <input type="tel" id="campo-telefono" data-campo="telefono" class="input-form" placeholder="Ingresa tu número de teléfono" inputmode="numeric" maxlength="9" aria-describedby="error-telefono">
                         <span id="error-telefono" class="mensaje-error" role="alert"></span>
                     </div>
 
@@ -97,7 +101,20 @@
                         <textarea rows="4" id="campo-comentario" class="input-form" placeholder="Déjanos un comentario"></textarea>
                     </div>
 
-                    <button type="submit" class="boton-enviar">Enviar</button>
+                    <!-- Términos y Condiciones (obligatorio) -->
+                    <div class="campo campo-terminos">
+                        <label class="etiqueta-terminos" for="campo-terminos">
+                            <input type="checkbox" id="campo-terminos" data-campo="terminos">
+                            <span>
+                                Acepto los <a href="#" id="link-terminos" class="enlace-legal">Términos y Condiciones</a>
+                                y autorizo el tratamiento de mis datos personales conforme a la
+                                <a href="#" id="link-privacidad" class="enlace-legal">Política de Privacidad</a>.
+                            </span>
+                        </label>
+                        <span id="error-terminos" class="mensaje-error" role="alert"></span>
+                    </div>
+
+                    <button type="submit" class="boton-enviar" disabled>Enviar</button>
 
                 </form>
 
@@ -160,14 +177,26 @@
         </div>
     </div>
 
-    <!-- CONTENEDOR DE NOTIFICACIONES TOAST (usuario ya existente / registro exitoso) -->
+    <!-- MODAL: Términos y Condiciones / Política de Privacidad -->
+    <div id="modal-legal" class="modal-overlay">
+        <div class="modal-caja modal-legal-caja" role="dialog" aria-modal="true" aria-labelledby="modal-legal-titulo">
+            <button type="button" class="modal-cerrar-x" id="modal-legal-cerrar-x" aria-label="Cerrar">&times;</button>
+            <h3 id="modal-legal-titulo" class="modal-titulo"></h3>
+            <div class="modal-legal-cuerpo" id="modal-legal-cuerpo"></div>
+            <button type="button" class="modal-cerrar" id="modal-legal-cerrar">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DE NOTIFICACIONES TOAST -->
     <div id="toast-contenedor" aria-live="polite"></div>
 
+    <script src="js/Toast.js"></script>
+    <script src="js/Carrito.js"></script>
     <script src="js/HamburgerMenu.js"></script>
     <script src="js/Modal.js"></script>
-     <script src="js/Toast.js"></script>
     <script src="js/FormValidator.js"></script>
-    <button id="theme-toggle" aria-label="Cambiar a modo oscuro">🌙</button>
+    <script src="js/TerminosCondiciones.js"></script>
+    <button id="theme-toggle" aria-label="Cambiar a modo oscuro"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
     <script src="theme-toggle.js"></script>
 </body>
 

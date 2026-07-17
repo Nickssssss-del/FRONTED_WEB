@@ -1,9 +1,9 @@
 :root {
     /* --- Colores de marca (fijos en ambos modos) --- */
-    --olive: #CFDC78;             
-    --olive-hover: #B9C85E;        
-    --tan: #A89682;                
-    --burnt-orange: #544736;       
+    --olive: #CFDC78;               
+    --olive-hover: #B9C85E;         
+    --tan: #A89682;                 
+    --burnt-orange: #544736;        
     --burnt-orange-hover: #322817; 
 
     /* --- Roles semánticos: MODO CLARO --- */
@@ -17,27 +17,30 @@
 }
 
 [data-theme="dark"] {
-    /* Fondos - Más claros */
-    --bg-page: #2A241E;
-    --bg-surface: #352D26;
-    --bg-header: #3B5A53;
+    /* --- Roles semánticos: MODO OSCURO --- */
+    --bg-page: #1a1510;
+    --bg-surface: #241d16;
+    --bg-header: #263d38;          
+    --text-primary: #E4DBD1;
+    --text-on-dark: #E4DBD1;
+    --text-secondary: #C9BCA8;
+    --border-color: #4a3d2c;
 
-    /* Textos */
-    --text-primary: #FFFDF9;
-    --text-on-dark: #F5EFE7;
-    --text-secondary: #E6D7C6;
-    --border-color: #8B7762;
-
-    /* Colores de marca */
-    --olive: #D9E98D;
-    --olive-hover: #E8F3B4;
-    --tan: #E5D2BD;
-    --burnt-orange: #E8B792;
-    --burnt-orange-hover: #F2CCAE;
+    --olive: #CFDC78;
+    --olive-hover: #E2EA9E;
+    --tan: #BAD1D6;
+    --burnt-orange: #8A7358;
+    --burnt-orange-hover: #A68F6E;
 }
 
-/* Transición suave al cambiar de tema */
+
+/* BUG CORREGIDO: el <html> no tenia background-color propio, solo
+   <body>. En moviles (especialmente iOS Safari), al hacer scroll
+   "elastico" mas alla del limite de la pagina (pull/overscroll) se
+   ve el fondo de <html>, que por defecto es blanco. Ahora usa el
+   mismo color de fondo del tema, tanto en modo claro como oscuro. */
 html {
+    background-color: var(--bg-page);
     transition: background-color 0.25s ease;
 }
 body, header, footer, .container, section, div, nav, a, p, h1, h2, h3, h4, input, select, button, table, th, td {
@@ -47,10 +50,6 @@ body, header, footer, .container, section, div, nav, a, p, h1, h2, h3, h4, input
 /*  MODO OSCURO  */
 [data-theme="dark"] header {
     box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.18);
-}
-
-[data-theme="dark"] section {
-    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
 [data-theme="dark"] footer.f-pie {

@@ -32,8 +32,9 @@
 }
 
 .mensaje-error::before {
-    content: "⚠";
+    content: "!";
     font-size: 0.85rem;
+    font-weight: 700;
 }
 
 /* Botón enviar: estado de carga */
@@ -63,4 +64,89 @@
 
 @keyframes girar-spinner {
     to { transform: rotate(360deg); }
+}
+
+/* =============================================================
+   TÉRMINOS Y CONDICIONES (checkbox obligatorio en Registrarse.html)
+   ============================================================= */
+.campo-terminos {
+    margin-top: 4px;
+    margin-bottom: 20px;
+}
+
+.etiqueta-terminos {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary, #544736);
+    font-weight: 400;
+}
+
+.etiqueta-terminos input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 19px;
+    height: 19px;
+    margin-top: 2px;
+    accent-color: var(--burnt-orange, #544736);
+    cursor: pointer;
+}
+
+.etiqueta-terminos .enlace-legal {
+    color: var(--olive-hover, #B9C85E);
+    text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.etiqueta-terminos .enlace-legal:hover {
+    color: var(--burnt-orange, #544736);
+}
+
+.campo-terminos .mensaje-error {
+    margin-left: 29px;
+    margin-top: 4px;
+}
+
+/* Cuerpo del modal legal: contenido largo con scroll propio */
+.modal-legal-caja {
+    max-width: 560px;
+    text-align: left;
+}
+
+.modal-legal-caja .modal-titulo {
+    text-align: center;
+}
+
+.modal-legal-cuerpo {
+    max-height: 55vh;
+    overflow-y: auto;
+    padding-right: 6px;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-secondary, #544736);
+    text-align: left;
+}
+
+.modal-legal-cuerpo p {
+    margin: 0 0 10px;
+}
+
+.modal-legal-cuerpo ol {
+    margin: 0 0 10px;
+    padding-left: 20px;
+}
+
+.modal-legal-cuerpo li {
+    margin-bottom: 8px;
+}
+
+.modal-legal-caja .modal-cerrar {
+    display: block;
+    margin: 0 auto;
 }
