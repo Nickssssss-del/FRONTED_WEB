@@ -1,5 +1,4 @@
-/* =============================================================
-   TerminosCondiciones.js
+/* TerminosCondiciones.js
    Controla el checkbox obligatorio de "Términos y Condiciones"
    del formulario de Registrarse.html:
      - Habilita/deshabilita el botón "Enviar" según el checkbox.
@@ -8,9 +7,7 @@
        por si se activa desde el teclado u otra vía).
      - Abre un modal con el contenido de los Términos y Condiciones
        o la Política de Privacidad al hacer clic en sus enlaces.
-   No modifica ni depende de la lógica de validación de los demás
-   campos (FormValidator.js sigue funcionando igual).
-   ============================================================= */
+    */
 
 document.addEventListener("DOMContentLoaded", () => {
     const formulario = document.querySelector(".formulario-cafe");

@@ -1,18 +1,10 @@
-/* =============================================================
-   PagoModales.js
+/*PagoModales.js
    Gestiona las ventanas emergentes que se muestran según el
    método de pago elegido en el checkout de carrito.html:
      - Yape / Plin  -> QR + monto + temporizador de 5 minutos.
      - Transferencia bancaria -> datos de cuenta + código de operación.
      - Tarjeta / POS -> aviso para pagar en caja.
-     - Efectivo -> confirmación de pedido registrado.
-
-   Se usa desde js/CarritoPagina.js, que sigue siendo el único
-   responsable de generar la boleta y vaciar el carrito: este
-   archivo solo se encarga de la interacción visual del pago y
-   avisa mediante un callback ("alConfirmar") cuando el flujo debe
-   continuar.
-   ============================================================= */
+     - Efectivo -> confirmación de pedido registrado. */
 
 class GestorPagoModales {
 
@@ -98,9 +90,7 @@ class GestorPagoModales {
         }
     }
 
-    /* =============================================================
-       YAPE
-       ============================================================= */
+    /* YAPE*/
     _iniciarYape(montoTotal, alConfirmar) {
         const overlay = this.overlayYape;
         if (!overlay) { alConfirmar(); return; }
@@ -162,17 +152,13 @@ class GestorPagoModales {
         return Math.random().toString(36).slice(2, 10).toUpperCase();
     }
 
-    /* ---------------------------------------------------------------
-       Genera un código QR REAL (escaneable con cualquier lector) pero
+    /*  Genera un código QR REAL (escaneable con cualquier lector) pero
        puramente de demostración: no representa un pago real ni datos
-       bancarios reales. El contenido es una URL/token ficticios propios
-       de este proyecto (ver README / prompt de mejoras), nunca un enlace
-       de pago verdadero. Se dibuja con QRCode.js (canvas) dentro de
+       bancarios reales. Se dibuja con QRCode.js (canvas) dentro de
        [data-yape-qr]; cada vez que el temporizador expira (cada 5 min,
        ver _iniciarTemporizadorYape) se vuelve a llamar con un token/
        timestamp nuevo para que el QR "cambie" visualmente, tal como
-       pediría un QR real que expira.
-       --------------------------------------------------------------- */
+       pediría un QR real que expira */
     _generarQrYape(elQr) {
         if (!elQr) return;
 
@@ -291,9 +277,7 @@ class GestorPagoModales {
         this._mostrar(overlay);
     }
 
-    /* =============================================================
-       EFECTIVO
-       ============================================================= */
+    /* EFECTIVO */
     _iniciarEfectivo(alConfirmar) {
         const overlay = this.overlayEfectivo;
         if (!overlay) { alConfirmar(); return; }

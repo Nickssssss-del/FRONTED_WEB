@@ -1,11 +1,11 @@
-/* =============================================================
+/* 
    Lógica exclusiva de carrito.html:
    - Renderiza los productos guardados en el carrito (window.carrito,
      definido en js/Carrito.js).
    - Maneja los botones +/-, eliminar y vaciar carrito.
    - Controla el formulario de "Finalizar compra".
    - Genera la boleta virtual y su descarga en PDF (jsPDF directo).
-   ============================================================= */
+    */
 
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(inicializarPaginaCarrito, 0);
@@ -283,9 +283,7 @@ function inicializarPaginaCarrito() {
 
         /* Según el método de pago elegido, se abre la ventana emergente
            correspondiente (Yape, Transferencia, POS o Efectivo). Solo al
-           confirmar el pago en esa ventana se genera la boleta. Si por
-           algún motivo el gestor de modales no está disponible, se
-           continúa directamente para no bloquear la compra. */
+           confirmar el pago en esa ventana se genera la boleta.  */
         if (window.gestorPagoModales) {
             window.gestorPagoModales.iniciarPago(datosCliente.metodoPago, resumenActual.total, continuarLuegoDePago);
         } else {
@@ -391,11 +389,9 @@ function inicializarPaginaCarrito() {
         if (e.key === "Escape" && boletaOverlay.classList.contains("visible")) cerrarBoleta();
     });
 
-    /* =============================================================
-       GENERACIÓN DE PDF — jsPDF directo (sin html2canvas)
+    /*  GENERACIÓN DE PDF — jsPDF directo (sin html2canvas)
        Genera el PDF a partir de los datos en memoria, garantizando
-       compatibilidad en Chrome, Edge y Firefox y layout A4 correcto.
-       ============================================================= */
+       compatibilidad en Chrome, Edge y Firefox y layout A4 correcto. */
     btnDescargarPdf.addEventListener("click", async () => {
 
         /* --- Validaciones pre-PDF --- */
@@ -474,11 +470,9 @@ function inicializarPaginaCarrito() {
         }
     });
 
-    /* =============================================================
-       FUNCIÓN: generarPDFDirecto
+    /* FUNCIÓN: generarPDFDirecto
        Construye el PDF usando la API de texto/dibujo de jsPDF.
-       No depende de html2canvas; funciona en cualquier navegador.
-       ============================================================= */
+       No depende de html2canvas; funciona en cualquier navegador. */
     async function generarPDFDirecto(datosCliente, resumen, numeroBoleta, fecha, hora) {
         const { jsPDF } = window.jspdf;
 
@@ -565,9 +559,7 @@ function inicializarPaginaCarrito() {
 
         y = 52;
 
-        /* ════════════════════════════════════════════
-           BLOQUE: Número, Fecha y Hora
-           ════════════════════════════════════════════ */
+        /*  BLOQUE: Número, Fecha y Hora*/
         fillRect(ML, y - 5, CW, 20, C_CREMA);
 
         setFont("bold", 9.5);
@@ -581,9 +573,7 @@ function inicializarPaginaCarrito() {
 
         y += 22;
 
-        /* ════════════════════════════════════════════
-           DATOS DEL CLIENTE
-           ════════════════════════════════════════════ */
+        /*  DATOS DEL CLIENTE*/
         setFont("bold", 8);
         setColor(C_CAFE);
         doc.text("DATOS DEL CLIENTE", ML, y);
@@ -670,9 +660,7 @@ function inicializarPaginaCarrito() {
         doc.text("TOTAL:", colLblX, y + 2); doc.text(Carrito.formatearMoneda(resumen.total), colValX, y + 2, { align: "right" });
         y += 16;
 
-        /* ════════════════════════════════════════════
-           MÉTODO DE PAGO
-           ════════════════════════════════════════════ */
+        /* MÉTODO DE PAGO*/
         dashedLine(y - 3);
         setFont("bold", 8.5);
         setColor(C_TEXTO);
@@ -695,9 +683,7 @@ function inicializarPaginaCarrito() {
 
         y += 6;
 
-        /* ════════════════════════════════════════════
-           MENSAJE DE AGRADECIMIENTO
-           ════════════════════════════════════════════ */
+        /*  MENSAJE DE AGRADECIMIENTO */
         dashedLine(y - 3);
         setFont("bolditalic", 10.5);
         setColor(C_CAFE);
@@ -706,9 +692,7 @@ function inicializarPaginaCarrito() {
         setColor(C_GRIS);
         doc.text("Esperamos volver a atenderlo en Bruma Café.", W / 2, y + 11, { align: "center" });
 
-        /* ════════════════════════════════════════════
-           PIE DE PÁGINA — fondo verde oscuro
-           ════════════════════════════════════════════ */
+        /* PIE DE PÁGINA — fondo verde oscuro*/
         const footerY = H - 20;
         fillRect(0, footerY, W, 20, C_VERDE);
         setFont("normal", 7.5);

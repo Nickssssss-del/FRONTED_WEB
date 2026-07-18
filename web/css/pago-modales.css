@@ -140,9 +140,7 @@
     font-weight: 600;
 }
 
-/* =============================================================
-   YAPE
-   ============================================================= */
+/* YAPE */
 .yape-qr-marco {
     background: #ffffff;
     border-radius: 16px;
@@ -153,11 +151,8 @@
 }
 
 .yape-qr {
-    /* Antes: display:grid con celdas al azar (qr-celda), un patrón
-       puramente decorativo que no era un QR real ni escaneable.
-       Ahora QRCode.js dibuja un <canvas> real dentro de este
-       contenedor (ver PagoModales.js -> _generarQrYape), así que
-       solo necesitamos centrarlo y reservar el mismo tamaño. */
+    /* QRCode.js dibuja un <canvas> real dentro de este
+       contenedor (ver PagoModales.js -> _generarQrYape) */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -209,9 +204,7 @@
     color: var(--tan);
 }
 
-/* =============================================================
-   TRANSFERENCIA BANCARIA
-   ============================================================= */
+/* TRANSFERENCIA BANCARIA */
 .transf-datos {
     text-align: left;
     background: var(--bg-surface);
@@ -252,16 +245,12 @@
     margin: 0 0 6px;
 }
 
-/* =============================================================
-   MODO OSCURO
-   ============================================================= */
+/* MODO OSCURO */
 [data-theme="dark"] .pago-modal-overlay {
     background: rgba(8, 6, 4, 0.8);
 }
 
-/* =============================================================
-   RESPONSIVE
-   ============================================================= */
+/* RESPONSIVE*/
 @media (max-width: 480px) {
     .pago-modal-caja {
         padding: 26px 18px 22px;
