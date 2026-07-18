@@ -44,10 +44,11 @@ class FormValidator {
             },
             fecha: (valor) => {
                 if (!valor) return "Selecciona tu fecha de nacimiento.";
-                const fechaIngresada = new Date(valor);
+                const fechaIngresada = new Date(valor + "T00:00:00");
                 const hoy = new Date();
-                let edad = hoy.getFullYear() - fechaIngresada.getFullYear();
+                hoy.setHours(0, 0, 0, 0);
                 if (fechaIngresada > hoy) return "La fecha no puede ser futura.";
+                let edad = hoy.getFullYear() - fechaIngresada.getFullYear();
                 if (edad < 13) return "Debes tener al menos 13 años para registrarte.";
                 return null;
             }
@@ -65,6 +66,28 @@ class FormValidator {
             telefono: this.formulario.querySelector('[data-campo="telefono"]'),
             fecha: this.formulario.querySelector('[data-campo="fecha"]')
         };
+        
+        // Fecha máxima dinámica: bloquea fechas futuras en el selector nativo
+        // y limpia el campo si el usuario ingresa/pega una fecha futura.
+        const inputFecha = this.campos.fecha;
+        if (inputFecha) {
+            const hoy = new Date();
+            const anioActual = hoy.getFullYear();
+            const mesActual = String(hoy.getMonth() + 1).padStart(2, "0");
+            const diaActual = String(hoy.getDate()).padStart(2, "0");
+            inputFecha.setAttribute("max", `${anioActual}-${mesActual}-${diaActual}`);
+
+            inputFecha.addEventListener("change", () => {
+                if (!inputFecha.value) return;
+                const fechaIngresada = new Date(inputFecha.value + "T00:00:00");
+                const hoySinHora = new Date();
+                hoySinHora.setHours(0, 0, 0, 0);
+                if (fechaIngresada > hoySinHora) {
+                    this.validarCampo("fecha"); // muestra "La fecha no puede ser futura."
+                    inputFecha.value = "";
+                }
+            });
+        }
 
         // Validación en tiempo real: al salir del campo (evento blur)
         Object.keys(this.campos).forEach((nombreCampo) => {
